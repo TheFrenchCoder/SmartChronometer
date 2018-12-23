@@ -1,0 +1,19 @@
+<?php
+$a="maman";
+echo $a[0];
+?>
+
+<php var_dump($a) ?>
+
+<form action="" method="get" class="form-example">
+
+<label for="raceSelector">Choisis une course:</label>
+<input list="races" id="raceSelector" name="race" />
+
+<datalist id="races">
+    <option value="Course 1">
+    <option value="Course 2">
+</datalist>
+
+    <input type="submit" value="">
+</form>
