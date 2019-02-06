@@ -73,37 +73,17 @@ if (isset($infos)) { // ECHO $infos
 echo "<br/>";
 echo "path: '" . basename(__FILE__) ."'";
 echo "<br/>";
+
 echo "Session: <br/>";
 var_dump($_SESSION);
-$bdd = null;
+
 echo "<br/>";
 echo $_SERVER['DOCUMENT_ROOT'];
 echo "<br/>";
+
 echo "Ip: " . $_SERVER['REMOTE_ADDR'];
 echo "<br/>";
 
-$U = date("U");
-$U = substr($U, 0, 6);
-echo $U;
-echo "<br/>";
-echo "<br/>";
+$bdd = null;
 
-echo "date U";
-echo date("U");
-echo "<br/>";
-echo "<br/>";
-
-echo "DATE_FORMAT '%i:%s:%f'";
-echo date('%i:%s:%f', time());
-echo "<br/>";
-echo "<br/>";
-echo " date de now() for '%i:%s:%U'";
-echo date('H:i:s:U',time());
-echo "<br/>";
-echo "<br/>";
-echo "<br/>";
-echo "<br/>";
-echo "<br/>";
-echo "<br/>";
-echo time();
 ?>

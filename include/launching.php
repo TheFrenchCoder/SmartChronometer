@@ -15,9 +15,11 @@ if (isset($_GET['number'])) {
     $start = isset($_GET['start']) ? $_GET['start'] : 'empty';
     $missing = isset($_GET['missing']) ? $_GET['missing'] : 'empty';
     $present = isset($_GET['present']) ? $_GET['present'] : 'empty';
-    $currentTime = date ('H:i:s',time());
-    $defaultTime = date(time());
-    //THE GOAL => $currentTime = date ('H:i:s:U',time());
+
+    $currentTime = microtime(true);
+    $defaultTime = date(microtime(true));
+    echo gettype($currentTime);
+    //THE GOAL => $currentTime = date ('H:i:s:U',microtime(true));
 
     /*
     $U = date("U");
@@ -39,9 +41,9 @@ if (isset($_GET['number'])) {
             $infos['[✔] sendingRequestStartCompetitor'] = "La requête de départ du n° '$number' a été recu par le serveur!";
 
             try {//INSERT INTO race1 (number, StartTime) VALUES (?,?)
-                $sqlStartRace = "INSERT INTO race1 (number, StartTime, FinishTime, ResultTime) VALUES (?,?,?,?)";
+                $sqlStartRace = "INSERT INTO race1 (number, startTime, finishTime, penalty, resultTime) VALUES (?,?,?,?,?)";
                 $qStartRace= $bdd->prepare($sqlStartRace);
-                $qStartRace->execute([$number, $currentTime, $currentTime, $currentTime]);
+                $qStartRace->execute([$number, $currentTime, $currentTime, '1', $currentTime]);
                 //*
                 /*$qStartRace = $bdd->prepare($sql["StarRace1"]);
                 $qStartRace->execute($dStartRace);*/

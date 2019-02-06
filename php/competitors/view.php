@@ -58,7 +58,7 @@ foreach ($qC as $dataC) {
         }elseif ($IsHere == false) {
             $statut = "Présente";
         }else {
-            $statut = "Là mais alien <a href='" . $urlzrtAlien . "'>zrtAlien</a>";
+            $statut = "Là mais alien <a href='" . $urlzrtAlien . "'>zrtAlien</a> ou pas ^^";
             
         }
 
@@ -68,7 +68,7 @@ foreach ($qC as $dataC) {
         }elseif ($IsHere == false) {
             $statut = "Absent";
         }else {
-            $statut = "Abs (comme pour les imprimantes 9) mais alien #zrtAlien";
+            $statut = "Abs (comme pour les imprimantes 9D) mais alien #zrtAlien";
         }
         $statut = "En course";
     }else {
@@ -85,7 +85,7 @@ foreach ($qC as $dataC) {
 
     if ($count > 1) { //$errors['MoreThanOne']
         $errors['MoreThanOne'] = "Il y a plusieurs competiteur assigne au dossard n° " . $_GET['number'] . " 
-        {voir <a href='http://192.168.0.2/phpmyadmin/'>BDD</a>}
+        {voir <a href='http://localhost/phpmyadmin/'>BDD</a>}
         ";}
     if ($count < 0) { //$errors['UnderOne']
         $errors['UnderOne'] = "Il n'y a pas de competiteur assigne au dossard n° " . $_GET['number'];}
@@ -93,6 +93,8 @@ foreach ($qC as $dataC) {
     if (!isset($errors)){ // All display
         $infos['OnlyOne'] = "Il n'y a bien qu'un seul competiteur assigne au dossard n° " . $_GET['number'];
 
+
+        echo "<a href='../admin.php'>Acceuil</a>";
         echo "<h1>Profil dossard n°" . $_GET['number'] . "</h1>";
         echo "<h2>Infos:<h2/>";
         echo "

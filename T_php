@@ -1,7 +1,4 @@
 <?php
-$a="maman";
-echo $a[0];
-?>
 
 <php var_dump($a) ?>
 
