@@ -43,7 +43,7 @@ if (isset($_GET['number'])) {
             try {//INSERT INTO race1 (number, StartTime) VALUES (?,?)
                 $sqlStartRace = "INSERT INTO race1 (number, startTime, finishTime, penalty, resultTime) VALUES (?,?,?,?,?)";
                 $qStartRace= $bdd->prepare($sqlStartRace);
-                $qStartRace->execute([$number, $currentTime, $currentTime, '1', $currentTime]);
+                $qStartRace->execute([$number, $currentTime, $currentTime, '0', $currentTime]);
                 //*
                 /*$qStartRace = $bdd->prepare($sql["StarRace1"]);
                 $qStartRace->execute($dStartRace);*/
