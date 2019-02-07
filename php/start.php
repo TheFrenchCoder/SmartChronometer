@@ -268,7 +268,7 @@ echo include_once "../include/launching.php";
         // Stocke $data[club_abrev] dans une variable temporaire
         $Tclub_abrevInRace = $dataInRace['club_abrev'];
         //UpCase de $Tclub_abrev en $club_abrev
-        $club_abrevInRace = strtoupper($Tclub_abrev);
+        $club_abrevInRace = strtoupper($Tclub_abrevInRace);
         ?>
     </div>
 
