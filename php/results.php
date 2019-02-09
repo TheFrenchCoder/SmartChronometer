@@ -1,26 +1,15 @@
 <?php 
 
 
-////////////////////////////////////////////////////////////////////////////////////////
-// OPTIONAL: Passer en AJAX pour ne plus avoir besssoin de relancer la page via '<meta/>' //
-////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+// TODO: Faire un classement en fonction de la categorie, et de l'embarcation. //
+/////////////////////////////////////////////////////////////////////////////////
 
 
 // On démarre la session si besoin dans le futur
 session_start();
 echo include_once "../include/bddConnectByRoot.php";
-$StartTime = time(13:10:03);
-$CompletStartTime = $StartTime; //todo: + millisecondes
 
-$FinishTime = date(13:10:10);
-$CompletFinishTime = $FinishTime; //todo: + millisecondes
-
-$RestTime = date_diff($CompletStartTime, $CompletFinishTime);
-
-
-//<!> EN SECONDES
-$penalty = 54;
-$FinalTime = $RestTime + $penalty;
 ?>
 
 <!DOCTYPE html>
@@ -34,17 +23,20 @@ $FinalTime = $RestTime + $penalty;
 
 <body>
 
-<h1>Starter</h1>
+<h1>Résultats:</h1>
 
 <?php //queries SQL
-    $qPresent = $bdd->query('SELECT * FROM competitors WHERE IsOnStart = 1 AND IsOnRun = 0 AND IsFinish = 0 AND IsHere = 1');
-
-    $qHasFinish = $bdd->query('SELECT * FROM competitors WHERE IsHere = 0');
-    $countMissing = $qHasFinish ->rowCount();
+    $qHasFinish = $bdd->query(
+    'SELECT * FROM competitors 
+    WHERE IsOnStart = 0 
+    AND IsOnRun = 0 
+    AND IsFinish = 1 
+    AND IsHere = 1');
+    $countFinish = $qHasFinish ->rowCount();
 
 ?>
 <div class="table_HasFinish"> 
-    <h2>Présents:</h2>
+
     <table>
 
     <div class="TR_HasFinish">
@@ -53,6 +45,7 @@ $FinalTime = $RestTime + $penalty;
         echo "<TH>Nom Prénom</TH>"; 
         echo "<TH>Club</TH>";
         echo "<TH>Temps initial";
+        echo "<TH>Temps d'arrivée";
         echo "<TH>Pénalitées</TH>"; 
         echo "<TH>Temps final</TH>"; 
         echo "</TR>";
@@ -60,9 +53,28 @@ $FinalTime = $RestTime + $penalty;
     </div>
 
     <?php
-     foreach ($qHasFinish as $dataHasFinish) { ?>
+        foreach ($qHasFinish as $dataHasFinish) {
 
-     <div class="initData_HasFinish">
+        //SetUp les vriables
+        $sqlGettingFinishData = (
+        'SELECT race1.startTime, race1.finishTime, race1.penalty, race1.resultTime, competitors.number, competitors.name, competitors.firstname, competitors.club_abrev 
+        FROM race1 
+        INNER JOIN competitors 
+        ON race1.number = competitors.number 
+        WHERE competitors.IsHere = 1 AND competitors.IsFinish = 1');
+
+
+        $qFinishData = $bdd->query($sqlGettingFinishData);
+
+        $FinishData = $qFinishData->fetch();
+        $startTime = $FinishData['startTime'];
+        $finishTime = $FinishData['finishTime'];
+        $penalty = $FinishData['penalty'];
+        $resultTime = $FinishData['resultTime'];
+
+    
+    ?>
+    <div class="initData_HasFinish">
           <?php
           //Extraction et affectation des variables
           // Stocke $data[firstname] dans une variable temporaire
@@ -80,7 +92,7 @@ $FinalTime = $RestTime + $penalty;
           //UpCase de $Tclub_abrev en $club_abrev
           $club_abrev = strtoupper($Tclub_abrev);
           ?>
-     </div>
+    </div>
 
      <div class="Dossard_HasFinish">
           <?php  
@@ -113,9 +125,21 @@ $FinalTime = $RestTime + $penalty;
           //Checkbox pour savoir si le concurrent est ABS ou pas.
           echo 
           "
-          <TD>
-          <p>$StartTime</p>
-          </TD>
+          <TD> "
+        . date('H:i:s.U', $startTime) .
+          "</TD>
+          ";
+        ?>
+     </div>
+
+     <div class="StartTime_HasFinish">
+          <?php
+          //Checkbox pour savoir si le concurrent est ABS ou pas.
+          echo 
+          "
+          <TD> "
+         .date('H:i:s.U', $finishTime).
+          "</TD>
           ";
         ?>
      </div>
@@ -133,11 +157,10 @@ $FinalTime = $RestTime + $penalty;
 
      <div class="FinalTime_HasFinish">
      <?php
-     //Start = <input type="Submit">
      echo "
-          <TD>
-          <p>$FinalTime</p>
-          </TD>
+          <TD>"
+          .time('H:i:s.U', $resultTime).
+          "</TD>
           ";
      ?>
      </div>

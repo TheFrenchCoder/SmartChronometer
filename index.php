@@ -56,8 +56,6 @@ session_start();
   </form>
     
 </div>
-
-<h1>LOL</h1>
   
 </body>
 </html>
