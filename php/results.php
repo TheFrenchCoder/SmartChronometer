@@ -159,7 +159,7 @@ echo include_once "../include/bddConnectByRoot.php";
      <?php
      echo "
           <TD>"
-          .time('H:i:s.U', $resultTime).
+          .date("H:i:s.U", $resultTime).
           "</TD>
           ";
      ?>
