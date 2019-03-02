@@ -26,12 +26,27 @@ echo include_once "../include/launching.php";
 <h1>Starter</h1>
 
 <?php //queries SQL
-    $qPresent = $bdd->query('SELECT * FROM competitors WHERE IsOnStart = 1 AND IsOnRun = 0 AND IsFinish = 0 AND IsHere = 1');
+    $qPresent = $bdd->query('SELECT *
+    FROM   competitors
+    WHERE  isonstart = 1
+       AND isonrun = 0
+       AND isfinish = 0
+       AND ishere = 1 ');
 
-    $qMissing = $bdd->query('SELECT * FROM competitors WHERE IsHere = 0');
+    $qMissing = $bdd->query('SELECT *
+    FROM competitors 
+    WHERE IsHere = 0');
     $countMissing = $qMissing ->rowCount();
 
-    $qInRace = $bdd->query('SELECT * FROM competitors WHERE IsOnStart = 0 AND IsOnRun = 1 AND IsFinish = 0 AND IsHere = 1');
+    $qInRace = $bdd->query('SELECT
+  *
+FROM
+  competitors
+WHERE
+  isonstart = 0
+  AND isonrun = 1
+  AND isfinish = 0
+  AND ishere = 1');
     $countInRace = $qInRace ->rowCount();
 ?>
 <div class="table_Present"> 
