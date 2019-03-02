@@ -41,7 +41,7 @@ if (isset($_GET['number'])) {
             $infos['[✔] sendingRequestStartCompetitor'] = "La requête de départ du n° '$number' a été recu par le serveur!";
 
             try {//INSERT INTO race1 (number, StartTime) VALUES (?,?)
-                $sqlStartRace = "INSERT INTO race1 (number, startTime, finishTime, penalty, resultTime) VALUES (?,?,?,?,?)";
+                $sqlStartRace = "INSERT INTO race1 (number, start_time, finish_time, penalty, result_time) VALUES (?,?,?,?,?)";
                 $qStartRace= $bdd->prepare($sqlStartRace);
                 $qStartRace->execute([$number, $currentTime, $currentTime, '0', $currentTime]);
                 //*

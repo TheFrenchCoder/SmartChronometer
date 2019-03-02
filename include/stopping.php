@@ -31,7 +31,7 @@ if (isset($_GET['number'])) {
                 $infos['[✔] sendingRequestFinishCompetitor'] = "La requête de départ du n° '$number' a été recu par le serveur!";
 
                 try {   //Set le temps d'arrivée du competiteur
-                    $sqlFinishRace = "UPDATE race1 SET FinishTime = '$currentTime' WHERE number = $number";
+                    $sqlFinishRace = "UPDATE race1 SET finish_time = '$currentTime' WHERE number = $number";
                     $qFinishRace= $bdd->prepare($sqlFinishRace);
                     $qFinishRace->execute([$currentTime, $number]);
                     $infos['[✔] successRequestFinishRaceUpdateFinalTime'] = "Le compétiteur n° '$number' a fini a: $currentTime";
@@ -41,26 +41,26 @@ if (isset($_GET['number'])) {
 
                 try {
                     //SetUp les vriables
-                    $sqlGettingDataForResultTime = "SELECT startTime, finishTime, penalty FROM race1 WHERE number = ?";
+                    $sqlGettingDataForResultTime = "SELECT start_time, finish_time, penalty FROM race1 WHERE number = ?";
                     $qResultTime = $bdd->prepare($sqlGettingDataForResultTime);
                     $qResultTime->execute(array($number));
 
                     $dataResultTime = $qResultTime->fetch();
 
-                            $startTime = $dataResultTime['startTime']; 
-                            $finishTime =  $dataResultTime['finishTime'];
+                            $start_time = $dataResultTime['start_time']; 
+                            $finish_time =  $dataResultTime['finish_time'];
                             $penalty =  $dataResultTime['penalty'];
 
-                            $difference = $finishTime - $startTime;
+                            $difference = $finish_time - $start_time;
                             $resultTime = $difference + $penalty;
 
                             //Update la DB
-                            $sqlSetResultTime = "UPDATE race1 SET resultTime = ? WHERE number = ?";
+                            $sqlSetResultTime = "UPDATE race1 SET result_time = ? WHERE number = ?";
                             $qSetResultTime= $bdd->prepare($sqlSetResultTime);
                             $qSetResultTime->execute(array($resultTime, $number));
 
                 } catch (PDOException $e) {
-                    $warning['[✔] errorRequestUpdateResultTime'] = $e->GETMessage();
+                    $warning['[❌] errorRequestUpdateResultTime'] = $e->GETMessage();
                 }
 
                 
@@ -73,7 +73,7 @@ if (isset($_GET['number'])) {
                     $qStartCompetitors->execute([$number]);
                     $infos['[✔] successRequestFinishCompetitor'] = "Le compétiteur n° '$number' a fini selon la table 'competitors'";
                 } catch (PDOException $e) {
-                    $warning['errorRequestStartCompetitor'] = $e->GETMessage();
+                    $warning['[❌] errorRequestStartCompetitor'] = $e->GETMessage();
                 }
 
                 if (!isset($e)) {
