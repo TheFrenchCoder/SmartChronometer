@@ -174,7 +174,7 @@ function ecrire_log($type, $user, $domain, $action, $details){
 }
 
 function get_log($type, $user, $domain, $action, $details){
-    return
+    return;
     // TODO: Faire un get de $log comme un log de ecrire_log()
 }
 
