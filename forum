@@ -1,0 +1,98 @@
+Titre:
+
+
+Bonjour,
+
+Je dispose d'une première table contenant les compétiteurs:
+
+competitors :
+- id (primary key)
+- number (secondary key, lien avec race1)
+- name
+- firstname
+- categorie_name
+- categorie_number
+- sex
+- club_abrev
+- IsOnStart
+- IsOnRun
+- IsFinish
+- IsHere
+
+Et une seconde avec les temps de ses compétiteurs à la course n°1:
+
+race1:
+- id (primary key)
+- number (secondary key, lien avec competitors)
+- start_time
+- finish_time
+- penalty
+- result_time ((finish_time - start_time) + penalty)
+
+Sur ma page de resultat en PHP, je souhaiterais avoir des tableau classe par sexe et ensuite par catégorie (de 1 à 7) par exemple:
+
+|---------------------|
+|Fille cat. Cadet = 4 |
+|---------------------|
+|Machin | 30min       |
+|Truc   | 35min       |
+|Chose  | 36min       |
+|---------------------|
+|Fille cat. Junior = 5|
+|---------------------|
+|Machin | 30min       |
+|Truc   | 35min       |
+|Chose  | 36min       |
+|---------------------|
+
+Pour celà j'ai d'abord reéaliser cette requête pour avoir les competiteurs en vrac:
+[CODE]
+SELECT
+    race1.start_time, 
+    race1.finish_time, 
+    race1.penalty, 
+    race1.result_time, 
+    competitors.number, 
+    competitors.name, 
+    competitors.firstname, 
+    competitors.club_abrev 
+        FROM race1 
+            INNER JOIN competitors 
+                ON race1.number = competitors.number 
+     WHERE  competitors.ishere = 1 
+     AND competitors.isfinish = 1
+[CODE/]
+
+Après pour les avoir dans l'odre, j'ai réaliser cette deuxième requête:
+[CODE]
+SELECT race1.start_time, 
+          race1.finish_time, 
+          race1.penalty, 
+          race1.result_time, 
+          competitors.number, 
+          competitors.name, 
+          competitors.firstname, 
+          competitors.club_abrev 
+     FROM race1 
+          INNER JOIN competitors 
+                    ON race1.number = competitors.number 
+     WHERE  competitors.ishere = 1 
+     AND competitors.isfinish = 1
+     ORDER BY competitors.sex, 
+               competitors.categorie_number,
+               race1.result_time ASC
+[CODE/]
+
+Ma requête est dans une clause foreach, mais je ne sais pas après de de long essai à faire un bout de code capable de me générer les tableaux pour x catégories
+dont l'association du categorie_number au nom de cette catégorie dans un array de type:
+{
+  "categories": [
+    { "name": "Poussin", "number": "1"},
+    { "name": "Benjamin", "number": "2"},
+    { "name": "Minime", "number": "3"},
+    { "name": "Cadet", "number": "4"},
+    { "name": "Junior", "number": "5"},
+    { "name": "Senior", "number": "6"},
+    { "name": "Vétérant", "number": }
+  ]
+ }
