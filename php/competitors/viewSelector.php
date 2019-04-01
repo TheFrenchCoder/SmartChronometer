@@ -21,13 +21,11 @@ try {
 </head>
 
 <body>
-<?php
 
 <li> <a href="php/competitors/viewSelector.php">Voir profil</a></li>
 <li> <a href="php/competitors/edit.php">Editer profil</a></li>
 <li> <a href="php/competitors/remove.php">Effacer profil</a></li>
 
-?>
 <br/>
 <h1>Debuger</h1> 
 <?php
