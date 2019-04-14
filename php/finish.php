@@ -16,7 +16,6 @@ echo include_once "../include/stopping.php";
 
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
      <title>Arrivée</title>
      <meta charset="utf-8">
@@ -129,38 +128,6 @@ echo include_once "../include/stopping.php";
 
 echo "<h3>Chemin: '" . basename(__FILE__) ."'</h3>";
 
-// echo $infos
-if (isset($infos)) {
-
-    echo "<h2>Infos:<h2/>";
-    foreach($infos as $key => $value){
-
-        echo "<h4>$key => $value</h4>\n";
-
-    }
-}
-
-// echo $warning
-if (isset($warning)) { 
-
-    echo "<h2>Warnings:<h2/>";
-    foreach($warning as $key => $value){
-
-        echo "<h4>$key => $value</h4>\n";
-
-    }
-}
-
-echo "<br/>";
-echo "path: '" . basename(__FILE__) ."'";
-echo "<br/>";
-if (!isset($_SESSION['role'])) { 
-    $role = "Ø";
-}else {
-    $role = $_SESSION['role'];
-}
-echo "Session: connecté en tant que [" . $role . "]" . $_SESSION["username"];
-echo "<br/>";
 echo "<pre> " . var_dump($_SESSION) . " <pre/>";
 $bdd = null;
 ?>
