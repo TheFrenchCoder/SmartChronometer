@@ -1,6 +1,7 @@
 Permet d'afficher les competiteurs en fonction de leur categories
-
 <?php 
+
+echo "<br/>";
 
 try {
 $bdd = new PDO('mysql:host=localhost;dbname=dbchrono;charset=utf8', 'root', 'espace21');
