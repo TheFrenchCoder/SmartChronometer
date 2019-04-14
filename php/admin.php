@@ -16,6 +16,8 @@ echo include_once "../include/bddConnectByRoot.php";
 
 <body>
 
+<?php include("$_SERVER[DOCUMENT_ROOT]/include/navbar.php"); ?>
+
 <h1>Administration</h1>
 
 <?php $q = $bdd->query('SELECT * FROM `competitors`'); ?>
