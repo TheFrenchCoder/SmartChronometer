@@ -22,19 +22,19 @@ session_start();
         if(!isset($_SESSION['username'])){
             echo 
             '
-                <li> <a href="php/login.php">Connection</a> </li>
+                <li> <a href="php/users/login.php">Connection</a> </li>
             ';
             $infos = "Utilisateur non connecté(e)";
         }else {
             
             echo 
             '
-                <li> <a href="php/login.php">Re-Connection</a> </li>
-                <li> <a href="php/start.php">Départ</a> </li>
-                <li> <a href="php/raceSelector.php">Selecteur de Course</a> </li>
-                <li> <a href="php/finish.php">Arrivée</a> </li>
+                <li> <a href="php/users/login.php">Re-Connection</a> </li>
+                <li> <a href="php/races/start.php">Départ</a> </li>
+                <li> <a href="php/races/raceSelector.php">Selecteur de Course</a> </li>
+                <li> <a href="php/races/finish.php">Arrivée</a> </li>
                 <li> <a href="php/admin.php">Administration</a></li>
-                <li> <a href="php/results.php">Résultats</a></li>    
+                <li> <a href="php/races/results.php">Résultats</a></li>    
             ';
             $infos = "Utilisateur connecté(e) en tant que " . $_SESSION['username'];
     } ?>

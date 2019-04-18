@@ -6,7 +6,6 @@
 
 //* 
 
-
 if (isset($_GET['number'])) {
     //* Si le $number du competiteur est renseigner
     
@@ -18,7 +17,6 @@ if (isset($_GET['number'])) {
 
     $currentTime = microtime(true);
     $defaultTime = date(microtime(true));
-    echo gettype($currentTime);
     //THE GOAL => $currentTime = date ('H:i:s:U',microtime(true));
 
     /*
@@ -42,7 +40,7 @@ if (isset($_GET['number'])) {
 
             try {//INSERT INTO race1 (number, StartTime) VALUES (?,?)
                 $sqlStartRace = "INSERT INTO race1 (number, start_time, finish_time, penalty, result_time) VALUES (?,?,?,?,?)";
-                $qStartRace= $bdd->prepare($sqlStartRace);
+                $qStartRace = $bdd->prepare($sqlStartRace);
                 $qStartRace->execute([$number, $currentTime, $currentTime, '0', $currentTime]);
                 //*
                 /*$qStartRace = $bdd->prepare($sql["StarRace1"]);
@@ -54,7 +52,7 @@ if (isset($_GET['number'])) {
             try {
                 //*
                 $sqlStartCompetitors = "UPDATE competitors SET IsOnStart = '0', IsOnRun = '1' WHERE number = $number";
-                $qStartCompetitors= $bdd->prepare($sqlStartCompetitors);
+                $qStartCompetitors = $bdd->prepare($sqlStartCompetitors);
                 $qStartCompetitors->execute([$number]);
                 $infos['[✔] successRequestStartCompetitor'] = "Le compétiteur n° '$number' est en course selon la table 'competitors'";
             } catch (PDOException $e) {
@@ -64,20 +62,20 @@ if (isset($_GET['number'])) {
             if (!isset($e)) {
                 $infos['[✔] successRequestStartGlobal'] = "Le départ du dossard n° '$number' a été donné! Et est dorénavant en course!";
             }
-            
-        }elseif ($missing == 1) {
+        } elseif ($missing == 1) {
             //* Si le compétiteur n° $umber est absent
 
             $infos['[✔] sendingRequestMissingCompetitor'] = "La requête d'abscence du n° '$number' a été recu par le serveur!";
 
             try {
                 $sqlMissingCompetitors = "UPDATE competitors SET IsHere = 0 WHERE number = $number";
-                $qMissingCompetitors= $bdd->prepare($sqlMissingCompetitors);
+                $qMissingCompetitors = $bdd->prepare($sqlMissingCompetitors);
                 $qMissingCompetitors->execute([$number]);
                 $infos['[✔] successRequestMissingCompetitor'] = "Le compétiteur au dossard n° '$number' est désormais absent!";
-            } catch (PDOException $e) {$warning['errorRequestMissingCompetitor'] = $e->GETMessage();}
-
-        }elseif (isset($present)) {
+            } catch (PDOException $e) {
+                $warning['errorRequestMissingCompetitor'] = $e->GETMessage();
+            }
+        } elseif (isset($present)) {
             if ($present == 1) {
                 //* Si le compétiteur n° $number est présent
                 //* - SI il est absent => OK SINON ERROR 
@@ -87,31 +85,35 @@ if (isset($_GET['number'])) {
 
                 try {
                     $sqlPresentCompetitors = "UPDATE competitors SET IsOnStart = '1', IsOnRun = '0', IsFinish = '0', IsHere = '1' WHERE number = $number";
-                    $qPresentCompetitors= $bdd->prepare($sqlPresentCompetitors);
+                    $qPresentCompetitors = $bdd->prepare($sqlPresentCompetitors);
                     $qPresentCompetitors->execute();
                     $infos['[✔] successRequestPresentCompetitor'] = "Le compétiteur au dossard n° '$number' est désormais présent!";
-                } catch (PDOException $e) {$warning['errorRequestPresentCompetitor'] = $e->GETMessage();}
-            }elseif ($present == 2) {
+                } catch (PDOException $e) {
+                    $warning['errorRequestPresentCompetitor'] = $e->GETMessage();
+                }
+            } elseif ($present == 2) {
                 $infos['[✔] sendingRequestAtStartCompetitor'] = "La requête d'annulation du n° '$number' a été recu par le serveur!";
 
                 try {//* Mets au départ et présent le compétiteurs correspondant au numéro donnée dans $number == $_GET['number']
                     $sqlPresentCompetitors = "UPDATE competitors SET IsOnStart = '1', IsOnRun = '0', IsFinish = '0', IsHere = '1' WHERE number = $number";
-                    $qPresentCompetitors= $bdd->prepare($sqlPresentCompetitors);
+                    $qPresentCompetitors = $bdd->prepare($sqlPresentCompetitors);
                     $qPresentCompetitors->execute();
                     $infos['[✔] successRequestPresentCompetitor'] = "Le compétiteur au dossard n° '$number' est désormais au départ!";
-                } catch (PDOException $e) {$warning['errorRequestPresentCompetitor'] = $e->GETMessage();}
+                } catch (PDOException $e) {
+                    $warning['errorRequestPresentCompetitor'] = $e->GETMessage();
+                }
 
                 try {//* Supprime l'entrée correspondante au numéro donnée dans $number == $_GET['number']
                     $sqlPresentRace = "DELETE FROM race1 WHERE number = $number";
-                    $qPresentRace= $bdd->prepare($sqlPresentRace);
+                    $qPresentRace = $bdd->prepare($sqlPresentRace);
                     $qPresentRace->execute();
                     $infos['[✔] successRequestPresentCompetitor'] = "Le compétiteur au dossard n° '$number' est désormais au départ!";
-                } catch (PDOException $e) {$warning['errorRequestPresentCompetitor'] = $e->GETMessage();}
-            }else {
+                } catch (PDOException $e) {
+                    $warning['errorRequestPresentCompetitor'] = $e->GETMessage();
+                }
+            } else {
                 $warning['errorOnVariablePRESENT'] = "La variable 'present' n\'est pas conforme! [0 >= \$number <= 1]";
             }
-        
-
         } else {
             //* XXX
             
@@ -119,13 +121,10 @@ if (isset($_GET['number'])) {
 
         }
 
-        #Refresh la page
-        //echo "<meta http-equiv=\"refresh\" content=\"1;url=./start.php\"/>";
-        
+        //Refresh la page
+        //?echo "<meta http-equiv=\"refresh\" content=\"1;url=./start.php\"/>";
+
     } else {
         $warning["[✖] incorrectNumberOfSelectedCompetitor"] = "Le n° de dossard du compétiteur sélectionné '$number' est non conforme! [\$number > 0]";
     }
-
-    
-
 }

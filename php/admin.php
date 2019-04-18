@@ -1,7 +1,7 @@
 <?php
 // On démarre la session si besoin dans le futur
 session_start();
-echo include_once "../include/bddConnectByRoot.php";
+echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ echo include_once "../include/bddConnectByRoot.php";
 <head>
      <title>Administration</title>
      <meta charset="utf-8">
-     <link rel="stylesheet" type="text/css" href="../css/administation.css"/>
+     <link rel="stylesheet" type="text/css" href="/css/administation.css"/>
      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -23,7 +23,7 @@ echo include_once "../include/bddConnectByRoot.php";
 <?php $q = $bdd->query('SELECT * FROM `competitors`'); ?>
 <p class="content">
 
-<a href="add.php"/>
+<a href="/php/competitors/add.php"/>
         <!-- <img src="../src/add.png" alt="ajouter" border="0"/> -->
         + Ajouter un nouveau competiteur
 
@@ -77,7 +77,7 @@ echo include_once "../include/bddConnectByRoot.php";
         //Statut
     echo "
             <TD>
-                <a href=\"competitors/view.php?number=$data[number]\"/>
+                <a href='/php/competitors/view.php?number=$data[number]'/>
                 Voir...
                 </a>
             </TD>
@@ -95,7 +95,7 @@ echo include_once "../include/bddConnectByRoot.php";
         //Edition
     echo "
             <TD>
-                <a href=\"competitors/edit.php?number=$data[number]\">
+                <a href='/php/competitors/edit.php?number=$data[number]'>
                 Modifier
                 </a>
             </TD>
@@ -104,7 +104,7 @@ echo include_once "../include/bddConnectByRoot.php";
         //Supprimer
     echo "
     <TD>
-    <a href=\"competitors/remove.php?number=$data[number]\">
+    <a href='/php/competitors/remove.php?number=$data[number]'>
      - Effacer
     </a>
     </TD>

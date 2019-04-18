@@ -1,0 +1,18 @@
+{
+    "daily": {
+        "summary": "No precipitation for the week; temperatures rising to 6° on Tuesday.",
+        "icon": "clear-day",
+        "data":
+            {
+                "time": 1383458400,
+                "summary": "Mostly cloudy throughout the day.",
+                "icon": "partly-cloudy-day",
+                "sunriseTime": 1383491266,
+                "sunsetTime": 1383523844,
+                "temperatureMin": -3.46,
+                "temperatureMinTime": 1383544800,
+                "temperatureMax": -1.12,
+                "temperatureMaxTime": 1383458400
+            }
+    }
+}

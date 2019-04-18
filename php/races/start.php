@@ -8,8 +8,9 @@
 
 // On démarre la session si besoin dans le futur
 session_start();
-echo include_once "../include/bddConnectByRoot.php";
-echo include_once "../include/launching.php";
+echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
+echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/launching.php";
+echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/navbar.php";
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +19,7 @@ echo include_once "../include/launching.php";
 <head>
      <title>Start</title>
      <meta charset="utf-8">
-     <link rel="stylesheet" type="text/css" href="../css/start.css" />
+     <link rel="stylesheet" type="text/css" href="/css/start.css" />
 </head>
 
 <body>
@@ -344,7 +345,7 @@ WHERE
 echo "<h3>Chemin: '" . basename(__FILE__) ."'</h3>";
 
 //TRAITEMENT DES DONNES:
-echo include_once "../include/launching.php";
+echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/launching.php";
 
 /*if(isset($_GET['start']) == 1){
     if(isset($_GET['InRace'])){

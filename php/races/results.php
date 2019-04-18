@@ -8,7 +8,7 @@
 
 // On démarre la session si besoin dans le futur
 session_start();
-echo include_once "../include/bddConnectByRoot.php";
+echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
 
 ?>
 
@@ -18,7 +18,7 @@ echo include_once "../include/bddConnectByRoot.php";
 <head>
      <title>Résultats</title>
      <meta charset="utf-8">
-     <link rel="stylesheet" type="text/css" href="../css/start.css" />
+     <link rel="stylesheet" type="text/css" href="/css/start.css" />
 </head>
 
 <body>

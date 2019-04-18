@@ -9,9 +9,9 @@
 //* On démarre la session si besoin dans le futur
 session_start();
 //* Connnection à la base de donnée
-echo include_once "../include/bddConnectByRoot.php";
+echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
 //* TRAITEMENT DES DONNES
-echo include_once "../include/stopping.php";
+echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/stopping.php";
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +19,7 @@ echo include_once "../include/stopping.php";
 <head>
      <title>Arrivée</title>
      <meta charset="utf-8">
-     <link rel="stylesheet" type="text/css" href="../css/start.css" />
+     <link rel="stylesheet" type="text/css" href="/css/start.css" />
 </head>
 
 <body>

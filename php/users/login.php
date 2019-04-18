@@ -59,7 +59,7 @@ if(isset($_POST['connexion'])) {
 <body>
 
 <div align="center">
-    <h3><a href="../index.php">Acceuil</a></h3>
+    <h3><a href="/index.php">Acceuil</a></h3>
     <h3>Connexion</h3>
     <br /><br />
     <form method="POST" action="">

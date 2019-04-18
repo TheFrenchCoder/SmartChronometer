@@ -2,9 +2,6 @@
 // On démarre la session si besoin dans le futur
 session_start();
 
-$selectedRace = $_GET['race'];
-
-
 ?>
 
 <!DOCTYPE html>

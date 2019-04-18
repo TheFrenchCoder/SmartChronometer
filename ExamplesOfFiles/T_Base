@@ -25,7 +25,7 @@ XXX
 
 <?php
 
-if (PHP_OS == "Linux"){
+if (PHP_OS == "Linux")
     echo include_once "/var/www/html/Chrono/include/functions.php";
 }elseif (PHP_OS ==  "WINNT"){
     echo include_once "include/functions.php"; 
