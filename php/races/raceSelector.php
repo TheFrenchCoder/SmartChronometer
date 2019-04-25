@@ -2,6 +2,9 @@
 // On démarre la session si besoin dans le futur
 session_start();
 
+//*include_once
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
+
 ?>
 
 <!DOCTYPE html>

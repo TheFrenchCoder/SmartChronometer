@@ -24,8 +24,6 @@ if (!in_array($_SESSION['role'], $Json_roleAllowToAdmin)) {
 
 <body>
 
-<?php include("$_SERVER[DOCUMENT_ROOT]/include/navbar.php"); ?>
-
 <h1>Administration</h1>
 
 <?php $q = $bdd->query('SELECT * FROM `competitors`'); ?>

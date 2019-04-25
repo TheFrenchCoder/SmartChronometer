@@ -1,5 +1,7 @@
 <?php
-echo include_once ("$_SERVER[DOCUMENT_ROOT]/include/work.php");
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
+echo "<br/><br/>";
+include_once ("$_SERVER[DOCUMENT_ROOT]/include/work.php");
 
 //DEBUG
 include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";

@@ -12,6 +12,8 @@ session_start();
 include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
 //* TRAITEMENT DES DONNES
 include_once $_SERVER["DOCUMENT_ROOT"]."/include/stopping.php";
+//* NAV BAR
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
 
 ?>
 

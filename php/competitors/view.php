@@ -93,8 +93,7 @@ foreach ($qC as $dataC) {
     if (!isset($errors)){ // All display
         $infos['OnlyOne'] = "Il n'y a bien qu'un seul competiteur assigne au dossard n° " . $_GET['number'];
 
-
-        echo "<a href='../admin.php'>Acceuil</a>";
+        include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
         echo "<h1>Profil dossard n°" . $_GET['number'] . "</h1>";
         echo "<h2>Infos:<h2/>";
         echo "
