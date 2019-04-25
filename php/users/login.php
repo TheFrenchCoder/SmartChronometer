@@ -3,9 +3,9 @@
 session_start();
 
 //include_once:
-echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
-echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
-echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/json.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/json.php";
 
 
 if(isset($_POST['connexion'])) {
