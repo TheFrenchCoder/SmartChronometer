@@ -8,9 +8,17 @@
 
 // On démarre la session si besoin dans le futur
 session_start();
-echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
-echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/launching.php";
-echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/navbar.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/launching.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/json.php";
+
+//Check autorisation a être sur cette page:
+if (!in_array($_SESSION['role'], $Json_roleAllowToStart)) {
+    echo "Vous n'avez pas accès à cette partie de l'application Web, veuillez retournez a l'acceuil";
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -334,72 +342,18 @@ WHERE
     <table/>
 </div>
 
-<p class="tips">.</p>
 
 </body>
 </html>
 
-<h1>Debuger</h1> 
 <?php
 
-echo "<h3>Chemin: '" . basename(__FILE__) ."'</h3>";
-
 //TRAITEMENT DES DONNES:
-echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/launching.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/launching.php";
 
-/*if(isset($_GET['start']) == 1){
-    if(isset($_GET['InRace'])){
-        //ABS
-        $qUpdateCompetitors= $bdd ->query('UPDATE competitors SET IsOnStart = 0, IsOnRun = 0, IsFinish = 0, IsHere = 0
-        WHERE number = ' . $_GET['number']);
-        echo "<meta http-equiv=\"refresh\" content=\"1;url=./start.php\"/>";
-    }else{
-        $qC= $bdd ->query('SELECT * FROM competitors WHERE number = ' . $_GET['number'] .' AND IsOnStart = 1');
-        $count = $qC ->rowCount();
-        echo "Il y'a ".$count." competiteur {Doss=" . $_GET['number'] . ", At Start}";
+//DEBUG
+include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
 
-    }
-}
-if (isset($_GET['present'])) {
-    $infos["miss"] = "Le dossard n°" . $_GET['number'] . " est présent!";
-}
-if (!isset($_GET['start'])) {
-    $warning["anyStart"] = "Aucun départ n'a été donné!";
-}
-*/
 
-// echo $infos
-if (isset($infos)) {
-
-    echo "<h2>Infos:<h2/>";
-    foreach($infos as $key => $value){
-
-        echo "<h4>$key => $value</h4>\n";
-
-    }
-}
-
-// echo $warning
-if (isset($warning)) { 
-
-    echo "<h2>Warnings:<h2/>";
-    foreach($warning as $key => $value){
-
-        echo "<h4>$key => $value</h4>\n";
-
-    }
-}
-
-echo "<br/>";
-echo "path: '" . basename(__FILE__) ."'";
-echo "<br/>";
-if (!isset($_SESSION['role'])) { 
-    $role = "Ø";
-}else {
-    $role = $_SESSION['role'];
-}
-echo "Session: connecté en tant que [" . $role . "]" . $_SESSION["username"];
-echo "<br/>";
-echo "<pre> " . var_dump($_SESSION) . " <pre/>";
 $bdd = null;
 ?>

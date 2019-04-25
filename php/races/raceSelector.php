@@ -32,8 +32,9 @@ session_start();
 </html>
 
 <?php
-echo "path: '" . basename(__FILE__) ."'";
-echo "<br/>";
-echo "Session: <br/>";
-var_dump($_SESSION);
+//DEBUG
+include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
+
+//FOOTER
+include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";
 ?>

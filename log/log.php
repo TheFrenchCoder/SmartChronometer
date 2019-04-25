@@ -26,16 +26,10 @@ session_start();
 </html>
 
 <?php
-echo include_once "./log/functionLog.php"; 
-/*
-if (PHP_OS == "Linux"){
-    echo include_once "/var/www/html/Chrono/log/functionLog.php";
-}elseif (PHP_OS ==  "WINNT"){
-    echo include_once "./log/functionLog.php"; 
-}*/
+include_once $_SERVER['DOCUMENT_ROOT']."/log/functionLog.php"; 
 
 ecrire_log("info", "Raphael", "Pc_Mouse","Il vient de se connecter en tant que 'azer;azer'", "il est le 1er user");
-//ecrire_log(null, null, null, null);
+ecrire_log("type", "user", "domain/Ip adresse", "actions faites", "détails utiles sur cette action.");
 
 
 echo "<br/> Ok! ";

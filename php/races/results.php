@@ -8,7 +8,7 @@
 
 // On démarre la session si besoin dans le futur
 session_start();
-echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
 
 ?>
 
@@ -56,7 +56,7 @@ $arrCategories = array(
 			</TR>
 		";
 		
-		echo "$value<br/>";
+		echo "<br/><div align=\"center\">$value</div>";
 
 		$sqlHasFinish = 
 		('SELECT 
@@ -182,38 +182,22 @@ $arrCategories = array(
 
 			<?php
 			echo "</TR>";  
-
-			echo '<br />';
 		}
 	   // * Séparation entre les tableaux des catégories et leur header contenant le nom de la catégorie 
-	   echo "<br/><br/>";
+	   //echo "<br/><br/>";
     }
     unset($value);
     unset($key); 
 
 ?>
-
-<p class="tips">.</p>
-
 </body>
 </html>
 
-<h1>Debuger</h1> 
 <?php
 
-echo "<h3>Chemin: '" . basename(__FILE__) ."'</h3>";
+//DEBUG
+include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
 
-echo "<br/>";
-echo "path: '" . basename(__FILE__) ."'";
-echo "<br/>";
-if (!isset($_SESSION['role'])) { 
-    $role = "Ø";
-}else {
-    $role = $_SESSION['role'];
-}
-echo "Session: connecté en tant que [" . $role . "]" . $_SESSION["username"];
-echo "<br/>";
-echo "<pre> " . var_dump($_SESSION) . " <pre/>";
-$bdd = null;
-
+//FOOTER
+include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";
 ?>

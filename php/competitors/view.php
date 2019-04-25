@@ -123,33 +123,14 @@ foreach ($qC as $dataC) {
 }
 
 ?>
-<br/>
-<h1>Debuger</h1> 
-<?php
-echo "<h3>Chemin: '" . basename(__FILE__) ."'</h3>";
-
-echo "<h3>Var_dump (null):</h3>";// var_dump($data);
-
-echo "<h3>Il y a " . $count . " competiteur avec le dossard " . $_GET['number'] . "</h3>";
-
-if (isset($infos)) {
-    echo "<h5>";
-    echo "Infos:";
-    var_dump ($infos);
-    echo "<h5/>";
-}
-if (isset($errors)) {
-    echo "<h5>";
-    echo "Erruers:";
-    var_dump ($errors);
-    echo "<h5/>";
-}
-echo "path: '" . basename(__FILE__) ."'";
-echo "<br/>";
-echo "Session: <br/>";
-var_dump($_SESSION);
-$bdd = null;
-?>
 
 </body>
 </html>
+
+<?php
+//DEBUG
+include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
+
+//FOOTER
+include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";
+?>

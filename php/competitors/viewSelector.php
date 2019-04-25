@@ -27,28 +27,12 @@ try {
 <li> <a href="php/competitors/remove.php">Effacer profil</a></li>
 
 <br/>
-<h1>Debuger</h1> 
 <?php
-echo "<h3>Chemin: '" . basename(__FILE__) ."'</h3>";
+//DEBUG
+include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
 
-if (isset($infos)) {
-    echo "<h5>";
-    echo "Infos:";
-    var_dump ($infos);
-    echo "<h5/>";
-}
-if (isset($errors)) {
-    echo "<h5>";
-    echo "Erruers:";
-    var_dump ($errors);
-    echo "<h5/>";
-}
-
-echo "path: '" . basename(__FILE__) ."'";
-echo "<br/>";
-echo "Session: <br/>";
-var_dump($_SESSION);
-$bdd = null;
+//FOOTER
+include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";
 ?>
 
 </body>

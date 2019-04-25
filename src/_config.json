@@ -1,4 +1,17 @@
 {
     "_comment_environment": "development or production",
-    "environment": "production"
+    "environment": "development",
+    "role":
+        {
+            "_comment_all": "list of all project's role",
+            "all": ["Admin", "Start", "Finish", "Judge", "Debug"],
+            
+            "allowTo":{
+                "start": ["Admin", "Start"],
+                "finish": ["Admin", "Finish"],
+                "admin": ["Admin"],
+                "_comment_debug": "not use",
+                "debug": ["Admin", "Debug"]
+            }    
+        }
 }

@@ -61,27 +61,10 @@ session_start();
 </html>
 
 <?php
-if (isset($infos)) { // ECHO $infos
-    echo "<h5>";
-    echo "Infos:";
-    var_dump ($infos);
-    echo "<h5/>";
-}
+//DEBUG
+include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
 
-echo "<br/>";
-echo "path: '" . basename(__FILE__) ."'";
-echo "<br/>";
-
-echo "Session: <br/>";
-var_dump($_SESSION);
-
-echo "<br/>";
-echo $_SERVER['DOCUMENT_ROOT'];
-echo "<br/>";
-
-echo "Ip: " . $_SERVER['REMOTE_ADDR'];
-echo "<br/>";
-
-$bdd = null;
+//FOOTER
+include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";
 
 ?>

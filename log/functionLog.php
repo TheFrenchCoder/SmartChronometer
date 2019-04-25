@@ -1,5 +1,11 @@
 <?php
 
+$filename = "log.txt";
+$path = $filename;
+$file = fopen($path, "a"); // for reading
+//fseek($file,SEEK_END); // poser le point de lecture à la fin du fichier
+//fputs($file,$log); // ecrire dans ce texte
+
 if (isset($username)) {
     echo "<br/>";
     echo "Ip: " . $_SERVER['REMOTE_ADDR'];
@@ -37,15 +43,6 @@ if (file_exists($filename)) {
     chmod($filename, 0777);
     echo "The file $filename exists";
 }
-
-$filename = "log.txt";
-$path = $filename;
-$file = fopen($path, "a"); // for reading
-//fseek($file,SEEK_END); // poser le point de lecture à la fin du fichier
-//fputs($file,$log); // ecrire dans ce texte
-
-
-
 
 // Lit une page web dans un tableau.
 $lines = file($path);
@@ -157,7 +154,7 @@ function ecrire_log($type, $user, $domain, $action, $details){
 
 /* ---- Initialisation de $log ---- */
 
-    $log= "[" . $date . " à " . $time . " for " . $type . " ]: " . $user . "/" . $domain . " = " . $action . " [" . $details . "]" . "\r\n";
+    $log= "[" . $date . " à " . $time . "] [" .$type . "] [" . $user . "@" . $domain . "] " . $action . " ( " . $details . " )" . "\r\n";
 
 //-----\\ END  //-----\\
 
@@ -178,15 +175,6 @@ function get_log($type, $user, $domain, $action, $details){
     // TODO: Faire un get de $log comme un log de ecrire_log()
 }
 
-/*
-$log = "AZER s'est login !";
-$filename = "Login.log.txt";
-$path = $filename;
-$file = fopen($path, "a"); // for reading
-fseek($file,SEEK_END); // poser le point de lecture à la fin du fichier
-fputs($file,$log); // ecrire dans ce texte
-fclose($file); //fermer le fichier
-*/
 
 
 ?>

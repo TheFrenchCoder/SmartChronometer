@@ -9,9 +9,10 @@
 //* On démarre la session si besoin dans le futur
 session_start();
 //* Connnection à la base de donnée
-echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
 //* TRAITEMENT DES DONNES
-echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/stopping.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/stopping.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -123,11 +124,10 @@ echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/stopping.php";
 </body>
 </html>
 
-<h1>Debuger</h1> 
 <?php
+//DEBUG
+include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
 
-echo "<h3>Chemin: '" . basename(__FILE__) ."'</h3>";
-
-echo "<pre> " . var_dump($_SESSION) . " <pre/>";
-$bdd = null;
+//FOOTER
+include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";
 ?>

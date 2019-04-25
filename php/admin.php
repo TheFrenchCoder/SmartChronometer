@@ -1,7 +1,15 @@
 <?php
 // On démarre la session si besoin dans le futur
 session_start();
-echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/json.php";
+
+//Check autorisation a être sur cette page:
+if (!in_array($_SESSION['role'], $Json_roleAllowToAdmin)) {
+    echo "Vous n'avez pas accès à cette partie de l'application Web, veuillez retournez a l'acceuil";
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -118,11 +126,10 @@ echo include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
 </body>
 </html>
 
-<h1>Debuger</h1> 
 <?php
-echo "path: '" . basename(__FILE__) ."'";
-echo "<br/>";
-echo "Session: <br/>";
-var_dump($_SESSION);
-$bdd = null;
+//DEBUG
+include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
+
+//FOOTER
+include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";
 ?>
