@@ -49,8 +49,6 @@ $arrCategories = array(
 				<TH>Dossard</TH>
 				<TH>Nom Prénom</TH>
 				<TH>Club</TH>
-				<TH>Temps initial</TH>
-				<TH>Temps d'arrivée</TH>
 				<TH>Temps intermédiare</TH>
 				<TH>Pénalitées</TH>
 				<TH>Temps final</TH>
@@ -141,20 +139,16 @@ $arrCategories = array(
 				?>
 			</div>
 
-			<div class="initialTime_Result">
-				<?php
-				//Affiche le temps de départ du compétiteur
-				echo "<TD> ". date('H:i:s.U', $start_time). " </TD>";
-			?>
-			</div>
+			<!-- 
+			Normalemnt il y a les autres cellules du tableaux tels que 
+			th:
+				<TH>Temps initial</TH>
+				<TH>Temps d'arrivée</TH>
+			td: 
+				<div class="initialTime_Result">
+				<div class="finishTime_Result">
+			-->
 
-			<div class="finishTime_Result">
-				<?php
-				//Afficje le temps d'arrivée du compétiteur
-				echo "<TD> " .date('H:i:s.U', $finish_time). " </TD>";
-				?>
-			</div>
-			
 			<div class="intermediaryTime_Result">
 				<?php
 				//Afficje le temps d'arrivée du compétiteur
