@@ -51,6 +51,7 @@ $arrCategories = array(
 				<TH>Club</TH>
 				<TH>Temps initial</TH>
 				<TH>Temps d'arrivée</TH>
+				<TH>Temps intermédiare</TH>
 				<TH>Pénalitées</TH>
 				<TH>Temps final</TH>
 				<TH>Place</TH>
@@ -154,6 +155,15 @@ $arrCategories = array(
 				?>
 			</div>
 			
+			<div class="intermediaryTime_Result">
+				<?php
+				//Afficje le temps d'arrivée du compétiteur
+				//Set variables:
+				$intermediaryTime = $finish_time - $start_time;
+				echo "<TD> " .date('H:i:s.U', $intermediaryTime). " </TD>";
+				?>
+			</div>
+
 			<div class="Penalty_Result">
 				<?php
 				//SAffiche les pénalitées du compétiteur
