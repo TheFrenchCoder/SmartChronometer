@@ -4,7 +4,7 @@
 session_start();
 include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
 include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
-//include_once $_SERVER["DOCUMENT_ROOT"]."/include/adding.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/adding.php";
 
 ?>
 
@@ -35,10 +35,10 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
 	</tr>
 	<tr>
 		<td>
-			<label for="_lastName">Nom: </label>
+			<label for="_Name">Nom: </label>
 		</td>
 		<td>
-			<input id="_lastName" type="text" name="lastname"><br/><br/>
+			<input id="_Name" type="text" name="name"><br/><br/>
 		</td>
 	</tr>
 	<tr>
@@ -100,10 +100,10 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
 		</td>
 		<td>
 			<div class="diplaySex inBlock"></div>
-			<input id="_sex" type="radio" name="sex" value="female"> Femme
+			<input id="_sex" type="radio" name="sex" value="0"> Femme
 		</td>
 		<td>
-			<input id="_sex" type="radio" name="sex" value="male"> Homme
+			<input id="_sex" type="radio" name="sex" value="1"> Homme<br/><br/>
 		</td>
 	</tr>
 	<tr>
@@ -122,8 +122,24 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
 			<input id="_reset" type="reset">	
 		</td>
 	</tr>
+</table>
 
-	</table>
+<table>
+	<tr>
+
+	<?php
+	if (isset($warning)) { 
+		echo "<td><h2>Warnings:</h2></td>";
+		foreach($warning as $key => $value){
+			echo "<tr>
+			<td class='titleOfWarning'><h4>$key</h4></td>\n
+			<td class='contentOfWarning'><h4>$value</h4></td>\n
+			</tr>";
+		}
+	}?>
+
+	</tr>
+</table>
 
 </form>
 
