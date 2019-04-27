@@ -1,39 +1,38 @@
-[✖]
-[✔]
-<?php
+<?php 
+
 // On démarre la session si besoin dans le futur
-//[✖]
-//[✔]
 session_start();
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
+
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
-     <title>XXX</title>
+     <title>NAME</title>
      <meta charset="utf-8">
-     <link rel="stylesheet" type="text/css" href="css/XXX.css"/>
+     <link rel="stylesheet" type="text/css" href="/css/start.css" />
 </head>
 
 <body>
 
-XXX
+<h1>NAME:</h1>
 
+<?php
+
+
+
+?>
 </body>
 </html>
 
 <?php
 
-if (PHP_OS == "Linux")
-    echo include_once "/var/www/html/Chrono/include/functions.php";
-}elseif (PHP_OS ==  "WINNT"){
-    echo include_once "include/functions.php"; 
-}
+//DEBUG
+include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
 
-echo "<br/>";
-echo "path: '" . basename(__FILE__) ."'";
-echo "<br/>";
-echo "Session: '" . var_dump($_SESSION) ."'";
-$bdd = null;
+//FOOTER
+include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";
 ?>
