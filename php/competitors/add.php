@@ -57,6 +57,7 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/include/adding.php";
 			<?php
 
 		$arrCategories = array(
+			0 => "Test",
 			1 => "Poussin",
 			2 => "Benjamin",
 			3 => "Minime",
@@ -65,7 +66,11 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/include/adding.php";
 			6 => "Senior",
 			7 => "Vétérant");
 			foreach ($arrCategories as $value => $key ) {
+				if ($value != 0) {
 					echo "<td class='space'> <input type='radio' name='category' value='$value'> $key</td>";
+				}else {
+					echo "<td class='space'> <input type='radio' name='category' value='$value' disabled> $key</td>";
+				}
 			}
 		?>
 		</div>
