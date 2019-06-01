@@ -14,6 +14,13 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/include/bdd/bddConnectByRoot.php";
 include_once $_SERVER["DOCUMENT_ROOT"]."/include/stopping.php";
 //* NAV BAR
 include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/json.php";
+
+//Check autorisation a être sur cette page:
+if (!in_array($_SESSION['role'], $Json_roleAllowToFinish)) {
+    echo "Vous n'avez pas accès à cette partie de l'application Web, veuillez retournez a l'acceuil";
+    exit;
+}
 
 ?>
 
