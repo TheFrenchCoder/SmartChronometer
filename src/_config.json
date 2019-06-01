@@ -8,10 +8,22 @@
             
             "allowTo":{
                 "start": ["Admin", "Start"],
+                "judge": ["Admin", "Judge"],
                 "finish": ["Admin", "Finish"],
                 "admin": ["Admin"],
+
                 "_comment_debug": "not use",
                 "debug": ["Admin", "Debug"]
             }    
-        }
+        },
+    "judge":
+        {
+            "_comment_displayPenaltyChoice": "select how u want to display penlty in form in 'text' or in 'number' ",
+            "displayPenaltyChoice": "text"
+        },
+    "judge_gates":
+    {
+        "_comment_syntax" : "\"user_id\": [\"gate_number_allowed\", [another]",
+        "6": [1,2,3]
+    }
 }

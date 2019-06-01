@@ -32,6 +32,7 @@ session_start();
                 <li> <a href="php/users/login.php">Re-Connection</a> </li>
                 <li> <a href="php/races/start.php">Départ</a> </li>
                 <li> <a href="php/races/raceSelector.php">Selecteur de Course</a> </li>
+                <li> <a href="php/races/judge.php">Juges</a> </li>
                 <li> <a href="php/races/finish.php">Arrivée</a> </li>
                 <li> <a href="php/admin.php">Administration</a></li>
                 <li> <a href="php/races/results.php">Résultats</a></li>    
