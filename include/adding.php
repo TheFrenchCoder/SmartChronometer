@@ -3,29 +3,21 @@
 if (isset($_GET['submit']) and $_GET['submit'] == 1) {
 
     //Extraction et affectation des variables
-    // Stocke $data[firstname] dans une variable temporaire
     $Tfirstname = $_GET['firstname']; 
-    // Stocke toutes la lettres sauf la 1ere dans une variable temporaire
-    $Trest = substr($Tfirstname, 1); 
-    //LowerCase de $Trest en $rest
-    $rest = strtolower($Trest); 
-    //UpCase de $Tfirstname en $firstname
-    $firstname = strtoupper($Tfirstname); 
-    //UpCase de $data[name] en $name
-    $name = strtoupper($_GET['name']); 
-    // Stocke $data[club_abrev] dans une variable temporaire
+    $firstname = strtoupper(substr($Tfirstname, 0, 1)) . strtolower(substr($Tfirstname, 1));
+
+    $Tname = $_GET['name']; 
+    $name = strtoupper(substr($Tname, 0, 1)) . strtolower(substr($Tname, 1));
+
     $Tclub_abrev = $_GET['club']; 
     //UpCase de $Tclub_abrev en $club_abrev
     $club = strtoupper($Tclub_abrev);
 
     $number = $_GET['number'];
-    $sex = $_GET['sex'];
-    $categorie_number = $_GET['category'];
 
-    var_dump($name);
-    echo "<br/><br/>";
-    var_dump($firstname);
-    echo "<br/><br/>";
+    $sex = $_GET['sex'];
+
+    $categorie_number = $_GET['category'];
 
     //*Check dans la BDD si le compétieur n'existe pas dejà:
         try {//Compte l'entrée correspondante au numéro donnée dans $number == $_GET['number']
@@ -48,6 +40,7 @@ if (isset($_GET['submit']) and $_GET['submit'] == 1) {
     if ($countSameIdentity == 0 and $countSameNumber == 0) {
 
         $arrCategories = array(
+            0 => "Test",
 			1 => "Poussin",
 			2 => "Benjamin",
 			3 => "Minime",
@@ -96,8 +89,12 @@ if (isset($_GET['submit']) and $_GET['submit'] == 1) {
         } catch (PDOException $e) {
             $warning['[❌] errorInsertCompetitor'] = $e->GETMessage();
         }
+    }elseif ($countSameIdentity == 1) {
+        $warning['[❌] Competitor\'sIdentityAlreadyExist'] = "Il existe déjà un compétiteur avec le même nom";
+    }elseif($countSameNumber == 1){
+        $warning['[❌] Competitor\'sNumberAlreadyExist'] = "Il existe déjà un compétiteur avec le même nom";
     }else {
-        $warning['[❌] CompetitorAlreadyExist...'] = "N'execute pas \$qInsertCompetitor ! [\$countSameIdentity = $countSameIdentity != 0 AND \$countSameNumber = $countSameNumber != 0]";
+        # code...
     }
 }
 
