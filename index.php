@@ -19,7 +19,7 @@ session_start();
     <p>Rôles</p>
   <ul>
     <?php 
-        if(!isset($_SESSION['username'])){
+        if(!isset($_SESSION['user_username'])){
             echo 
             '
                 <li> <a href="php/users/login.php">Connection</a> </li>
@@ -37,7 +37,7 @@ session_start();
                 <li> <a href="php/admin.php">Administration</a></li>
                 <li> <a href="php/races/results.php">Résultats</a></li>    
             ';
-            $infos = "Utilisateur connecté(e) en tant que " . $_SESSION['username'];
+            $infos = "Utilisateur connecté(e) en tant que " . $_SESSION['user_username'];
     } ?>
 
   </ul>
@@ -62,8 +62,8 @@ session_start();
 </html>
 
 <?php
-//DEBUG
-//?include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
+//?DEBUG
+include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
 
 //FOOTER
 include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";

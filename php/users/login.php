@@ -29,7 +29,9 @@ if(isset($_POST['connexion'])) {
                 $qSelect = $bdd->query($sqlSelect);
                 
                 foreach ($qSelect as $dataSelect) {
+                    $username = $dataSelect['username'];
                     $role = $dataSelect['role'];
+                    $id = $dataSelect['id'];
                 }
 
                 $count = $qSelect ->rowCount();
@@ -38,13 +40,16 @@ if(isset($_POST['connexion'])) {
                     $warning["notMatching"] = "Le pseudo ou le mot de passe est incorrect, le compte n'a pas été trouvé.";
                 } else {
                     // on ouvre la session avec $_SESSION:
-                    $_SESSION['username'] = $username; // la session peut être appelée différemment et son contenu aussi peut être autre chose que le pseudo
-                    $_SESSION['role'] = $role;
+                    $_SESSION['user_username'] = $username; // la session peut être appelée différemment et son contenu aussi peut être autre chose que le pseudo
+                    $_SESSION['user_role'] = $role;
+                    $_SESSION['user_id'] = $id;
+
                     $infos["Match"] = 
                     "Vous êtes à présent connecté ! <br />
-                    Nom d'utilisateur: " . $username ."<br />
+                    Nom d'utilisateur: '" . $username ."'<br />
+                    Utilisateur n°: '" . $id ."'<br />
                     Rôle: " . $role ."<br />
-                    Mot de passe: " . sha1($password) . " (Tu croyais quoi là?)";
+                    Mot de passe: '" . sha1($password) . "' (Tu croyais quoi là?)";
                 }
             }
         }

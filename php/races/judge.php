@@ -12,7 +12,7 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
 include_once $_SERVER["DOCUMENT_ROOT"]."/include/json.php";
 
 //Check autorisation a être sur cette page:
-if (!in_array($_SESSION['role'], $Json_roleAllowToJudge)) {
+if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
     echo "Vous n'avez pas accès à cette partie de l'application Web, veuillez retournez a l'acceuil";
     exit;
 }
@@ -49,8 +49,41 @@ if (!in_array($_SESSION['role'], $Json_roleAllowToJudge)) {
 <div class="table_ToJudge">
     <?php
         if ($countToJudge == 0){
-            echo "<h2>A juger: 0</h2>";
+
+            $message_count = "<h2>Vous n’avez plus de compétiteurs sur les portes ";
+            foreach ($json['judge_gates'] as $id) {
+                if (gettype($id) == "array") {
+                    foreach ($id as $gates) {
+                        $message_count .= $gates;
+                    }
+                }
+            $message_count .= " à juger.</h2>";
+            echo $message_count;
         }else {
+            var_dump($json);
+            echo "<br/><br/><br/>";
+
+            foreach ($json['judge_gates'] as $id) {
+                if (gettype($id) == "array") {
+                    foreach ($id as $gates) {
+                        echo $gates;
+                    }
+                }
+
+             }
+
+            function discover(array $parsed_json){
+                foreach ($parsed_json as $key => $value) {
+                    echo "$key: <br/>";
+                    if (gettype($value) == 'array') {
+                        //discover(value);
+                        echo "array! <br/>";
+                    }else {
+                        echo "$value <br/>";
+                    }
+                }
+            }
+
             echo "<h2>A juger:</h2>";
         ?>            
             <table>
@@ -123,22 +156,22 @@ if (!in_array($_SESSION['role'], $Json_roleAllowToJudge)) {
             echo "
             <TD>
 
-            <input id=\"perfect$dataToJudge[number]\" type=\"submit\" name=\"penalty_amount\" value=\"0\">
-            <label for=\"perfect$dataToJudge[number]\">Aucune</label>
+            <input id=\"perfect_$dataToJudge[number]\" type=\"submit\" name=\"penalty_amount\" value=\"0\">
+            <label for=\"perfect_$dataToJudge[number]\">Aucune</label>
 
             </TD>
 
             <TD>
 
-            <input id=\"touched$dataToJudge[number]\" type=\"submit\" name=\"penalty_amount\" value=\"2\">
-            <label for=\"touched$dataToJudge[number]\">Touchée</label>
+            <input id=\"touched_$dataToJudge[number]\" type=\"submit\" name=\"penalty_amount\" value=\"2\">
+            <label for=\"touched_$dataToJudge[number]\">Touchée</label>
 
             </TD>
 
             <TD>
 
-            <input id=\"missed$dataToJudge[number]\" type=\"submit\" name=\"penalty_amount\" value=\"50\">
-            <label for=\"missed$dataToJudge[number]\">Ratée</label>
+            <input id=\"missed_$dataToJudge[number]\" type=\"submit\" name=\"penalty_amount\" value=\"50\">
+            <label for=\"missed_$dataToJudge[number]\">Ratée</label>
 
             </TD>
 
@@ -148,22 +181,22 @@ if (!in_array($_SESSION['role'], $Json_roleAllowToJudge)) {
             echo "
             <TD>
 
-            <input id=\"perfect$dataToJudge[number]\" type=\"submit\" name=\"penalty_amount\" value=\"0\">
-            <label for=\"perfect$dataToJudge[number]\">0</label>
+            <input id=\"perfect_$dataToJudge[number]\" type=\"submit\" name=\"penalty_amount\" value=\"0\">
+            <label for=\"perfect_$dataToJudge[number]\">0</label>
 
             </TD>
 
             <TD>
 
-            <input id=\"touched$dataToJudge[number]\" type=\"submit\" name=\"penalty_amount\" value=\"2\">
-            <label for=\"touched$dataToJudge[number]\">2</label>
+            <input id=\"touched_$dataToJudge[number]\" type=\"submit\" name=\"penalty_amount\" value=\"2\">
+            <label for=\"touched_$dataToJudge[number]\">2</label>
 
             </TD>
 
             <TD>
 
-            <input id=\"missed$dataToJudge[number]\" type=\"submit\" name=\"penalty_amount\" value=\"50\">
-            <label for=\"missed$dataToJudge[number]\">50</label>
+            <input id=\"missed_$dataToJudge[number]\" type=\"submit\" name=\"penalty_amount\" value=\"50\">
+            <label for=\"missed_$dataToJudge[number]\">50</label>
 
             </TD>
 
@@ -172,23 +205,22 @@ if (!in_array($_SESSION['role'], $Json_roleAllowToJudge)) {
             # code...
         }
 
-        echo "
-        <TD>
-        
-        <input id=\"surrend$dataToJudge[number]\" type=\"submit\" name=\"surrend\" value=\"1\">
-        <label for=\"surrend$dataToJudge[number]\">Abandon</label>
+            echo "
+            <TD>
 
-        </TD>
+            <input id=\"surrend_$dataToJudge[number]\" type=\"submit\" name=\"surrend\" value=\"1\">
+            <label for=\"surrend_$dataToJudge[number]\">Abandon</label>
 
-        </form>
-        ";
+            </TD>
+            ";
         ?>
     </div>
         
     <?php
-    echo "</TR>";  
+    echo "</TR></form>";  
     } ?>
-    <table/>
+    </form>
+    </table>
 </div>
 
 <div class="table_HasBeenJudge">
