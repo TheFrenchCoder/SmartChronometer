@@ -5,8 +5,7 @@ if ($appEnvironment == "development") {
     echo "<h1>Debuger</h1>";
 
     //* echo $infos
-    if (isset($infos)) {
-
+    if (isset($infos) && gettype($infos) == "array") {
         echo "<h2>Infos:<h2/>";
         foreach($infos as $key => $value){
 
