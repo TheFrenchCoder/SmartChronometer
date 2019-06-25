@@ -30,59 +30,45 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
 
 <body>
 
-<h1>Juge</h1>
+<div class="Title">
+    <?php
+        $message_count_gates = "(portes: ";
+            $first_gate = true;
+            $user_gates = $json['judge_gates'][$_SESSION["user_id"]];
+            foreach ($user_gates as $gate) {
+                        if ($first_gate == false) {
+                            $message_count_gates .= ", ";
+                        }
+                        $message_count_gates .= $gate;
+                        $first_gate = false;
+                    }
+            $message_count_gates .= ")";
 
-<?php //query SQL
-
-    $qToJudge = $bdd->query('SELECT * FROM competitors WHERE NOT EXISTS (SELECT * FROM penalty WHERE competitors.number = penalty.competitor_number)');
-    $countToJudge = $qToJudge ->rowCount();
-
-    /*
-    SELECT * FROM competitors WHERE NOT EXISTS (SELECT * FROM penalty WHERE competitors.number = penalty.competitor_number) UNION SELECT * FROM penalty WHERE tab2.col1 = 2
-
-    */
-
-    $qHasBeenJudge = $bdd->query('SELECT * FROM competitors, penalty WHERE competitors.number = penalty.competitor_number AND EXISTS (SELECT * FROM competitors WHERE competitors.number = penalty.competitor_number) ORDER BY penalty.gate_number, penalty.id');
-    $countHasBeenJudge = $qHasBeenJudge ->rowCount();
-?>
+        echo "<h1>Juge $message_count_gates</h1>";
+    ?>
+</div>
 
 <div class="table_ToJudge">
     <?php
-        if ($countToJudge == 0){
-
-            $message_count = "<h2>Vous n’avez plus de compétiteurs sur les portes ";
-            foreach ($json['judge_gates'] as $id) {
-                if (gettype($id) == "array") {
-                    foreach ($id as $gates) {
-                        $message_count .= $gates;
+        $message_count_gates = "(portes: ";
+        $first_gate = true;
+        $user_gates = $json['judge_gates'][$_SESSION["user_id"]];
+        foreach ($user_gates as $gate) {
+                    if ($first_gate == false) {
+                        $message_count_gates .= ", ";
                     }
+                    $message_count_gates .= $gate;
+                    $first_gate = false;
                 }
-            $message_count .= " à juger.</h2>";
-            echo $message_count;
+        $message_count_gates .= ")";
+
+        $qToJudge["All"] = $bdd->query('SELECT * FROM competitors WHERE NOT EXISTS (SELECT * FROM penalty WHERE competitors.number = penalty.competitor_number)');
+        $countToJudge["All"] = $qToJudge["All"] ->rowCount();
+
+        if ($countToJudge["All"] == 0){
+
+            echo "<h2>Vous n’avez plus de compétiteurs</h2>";
         }else {
-            var_dump($json);
-            echo "<br/><br/><br/>";
-
-            foreach ($json['judge_gates'] as $id) {
-                if (gettype($id) == "array") {
-                    foreach ($id as $gates) {
-                        echo $gates;
-                    }
-                }
-
-             }
-
-            function discover(array $parsed_json){
-                foreach ($parsed_json as $key => $value) {
-                    echo "$key: <br/>";
-                    if (gettype($value) == 'array') {
-                        //discover(value);
-                        echo "array! <br/>";
-                    }else {
-                        echo "$value <br/>";
-                    }
-                }
-            }
 
             echo "<h2>A juger:</h2>";
         ?>            
@@ -95,11 +81,19 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
                         <TH colspan="4" >Actions</TH>
                     </TR>
                 </div>            
-
     <?php
         }
     
-        foreach ($qToJudge as $dataToJudge) {
+        foreach ($user_gates as $gate) {
+            echo "
+            </TR>
+                <TH colspan='7' > Portes: $gate</TH>
+            </TR>";
+
+            $qToJudge[$gate] = $bdd->prepare('SELECT * FROM competitors WHERE NOT EXISTS (SELECT * FROM penalty WHERE competitors.number = penalty.competitor_number AND penalty.gate_number = :gate)');   
+            $qToJudge[$gate]->execute(array(':gate' => $gate));
+
+            foreach ($qToJudge[$gate] as $dataToJudge) {
     ?>
 
     <div class="InitData_ToJudge">
@@ -130,6 +124,8 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
             <TD>
             <input type=\"checkbox\" name=\"number\" class=\"dossard-button\" id=\"checkbox\" value=\"$dataToJudge[number]\" checked>
             <label for=\"checkbox\">$dataToJudge[number]</label>
+
+            <input type=\"checkbox\" name=\"gate\" class=\"dossard-button\" id=\"checkbox\" value=\"$gate\" checked>
             </TD>  
             ";
         ?>
@@ -202,7 +198,7 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
 
             ";
         } else {
-            # code...
+            $error["JudgeDisplayPenaltyChoice"] = "Erreur dans le fichier de config [judge][displayPenaltyChoice]";
         }
 
             echo "
@@ -218,13 +214,19 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
         
     <?php
     echo "</TR></form>";  
-    } ?>
+    }
+    }
+    ?>
     </form>
     </table>
 </div>
 
 <div class="table_HasBeenJudge">
     <?php
+
+        $qHasBeenJudge["All"] = $bdd->query('SELECT * FROM competitors, penalty WHERE competitors.number = penalty.competitor_number AND EXISTS (SELECT * FROM competitors WHERE competitors.number = penalty.competitor_number) ORDER BY penalty.gate_number, penalty.id');
+        $countHasBeenJudge["All"] = $qHasBeenJudge["All"] ->rowCount();
+
         if ($countHasBeenJudge == 0){
             echo "<h2>Ont été jugé: 0</h2>";
         }else {
@@ -242,8 +244,16 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
 
     <?php
         }
-    
-        foreach ($qHasBeenJudge as $dataHasBeenJudge) {
+
+        foreach ($user_gates as $gate) {
+            echo "
+            </TR>
+                <TH colspan=\"7\" > Portes: $gate</TH>
+            </TR>";
+
+            $qHasBeenJudge[$gate] = $bdd->query('SELECT * FROM competitors, penalty WHERE competitors.number = penalty.competitor_number AND EXISTS (SELECT * FROM competitors WHERE competitors.number = penalty.competitor_number) ORDER BY penalty.gate_number, penalty.id');
+
+        foreach ($qHasBeenJudge[$gate] as $dataHasBeenJudge) {
     ?>
 
     <div class="InitData_HasBeenJudge">
@@ -322,7 +332,9 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
         
     <?php
     echo "</TR>";  
-    } ?>
+    }
+    }
+  ?>
     <table/>
 </div>
 
@@ -335,4 +347,8 @@ include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
 
 //FOOTER
 include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";
+
+var_dump($qToJudge);
+var_dump($qHasBeenJudge);
+
 ?>

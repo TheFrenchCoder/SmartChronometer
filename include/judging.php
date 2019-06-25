@@ -10,8 +10,17 @@ $penalty_amount = isset($_GET['penalty_amount']) ? $_GET['penalty_amount'] : 'em
 $reverse = isset($_GET['reverse']) ? $_GET['reverse'] : 'empty';
 $penalty_id = isset($_GET['penalty_id']) ? $_GET['penalty_id'] : 'empty';
 $surrend = isset($_GET['surrend']) ? $_GET['surrend'] : 'empty';
-$gate_number = 0;
+$gate_number = isset($_GET['gate']) ? $_GET['gate'] : 'empty';
 $user_id = 0;
+
+//* VAR DUMP VARIABLE
+echo "competitor_number " .$competitor_number. "<br/>";
+echo "penalty_amount " .$penalty_amount. "<br/>";
+echo "reverse " .$reverse. "<br/>";
+echo "penalty_id " .$penalty_id. "<br/>";
+echo "surrend " .$surrend. "<br/>";
+echo "gate_number " .$gate_number. "<br/>";
+echo "user_id " .$user_id. "<br/>";
 
 if (isset($_GET['number'])) {
     //* Si le $number du competiteur est renseigner

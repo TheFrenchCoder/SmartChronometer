@@ -24,7 +24,8 @@
     "judge_gates":
     {
         "_syntax" : "\"user_id\": [\"gate_number_allowed\", [another]",
-        "6": [1,2,3]
+        "6": [1,2,3],
+        "7": [1,2,3]
     },
     "races":
     {
