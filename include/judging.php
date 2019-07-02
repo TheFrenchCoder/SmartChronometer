@@ -44,6 +44,7 @@ if (isset($_GET['number'])) {
                     $sqlJudgeCompetitor = "INSERT INTO penalty (gate_number, competitor_number, penalty_amount, user_id) VALUES (?,?,?,?)";
                     $qJudgeCompetitor = $bdd->prepare($sqlJudgeCompetitor);
                     $qJudgeCompetitor->execute([$gate_number, $competitor_number, $penalty_amount, $user_id]);
+                    $infos['[✔] InsertCompetitorPenalty'] = "Add ".$penalty_amount." to ".$competitor_number." on ".$gate_number." by ".$user_id ;
                 } catch (PDOException $e) {
                     $warning['errorRequestJudgeCompetitor'] = $e->GETMessage();
                 }

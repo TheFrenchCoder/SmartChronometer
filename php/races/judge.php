@@ -227,10 +227,10 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
         $qHasBeenJudge["All"] = $bdd->query('SELECT * FROM competitors, penalty WHERE competitors.number = penalty.competitor_number AND EXISTS (SELECT * FROM competitors WHERE competitors.number = penalty.competitor_number) ORDER BY penalty.gate_number, penalty.id');
         $countHasBeenJudge["All"] = $qHasBeenJudge["All"] ->rowCount();
 
-        if ($countHasBeenJudge == 0){
+        if ($countHasBeenJudge["All"] == 0){
             echo "<h2>Ont été jugé: 0</h2>";
         }else {
-            echo "<h2>Ont été jugé:</h2>";
+            echo "<h2>Ont été jugé:".$countHasBeenJudge['All']."</h2>";
         ?>            
             <table>
                 <div class="TR_HasBeenJudge">
@@ -251,7 +251,9 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
                 <TH colspan=\"7\" > Portes: $gate</TH>
             </TR>";
 
-            $qHasBeenJudge[$gate] = $bdd->query('SELECT * FROM competitors, penalty WHERE competitors.number = penalty.competitor_number AND EXISTS (SELECT * FROM competitors WHERE competitors.number = penalty.competitor_number) ORDER BY penalty.gate_number, penalty.id');
+            $qHasBeenJudge[$gate] = $bdd->prepare('SELECT * FROM competitors, penalty WHERE competitors.number = penalty.competitor_number AND EXISTS (SELECT * FROM competitors WHERE competitors.number = penalty.competitor_number AND penalty.gate_number = :gate) ORDER BY penalty.gate_number, penalty.id');
+            $parameters_HasBeenJudge[$gate] = array(':gate' => $gate);
+            $qHasBeenJudge[$gate]->execute($parameters_HasBeenJudge[$gate]);
 
         foreach ($qHasBeenJudge[$gate] as $dataHasBeenJudge) {
     ?>
@@ -347,8 +349,5 @@ include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
 
 //FOOTER
 include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";
-
-var_dump($qToJudge);
-var_dump($qHasBeenJudge);
 
 ?>
