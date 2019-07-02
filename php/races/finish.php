@@ -17,7 +17,7 @@ include_once $_SERVER["DOCUMENT_ROOT"]."/include/part/navbar.php";
 include_once $_SERVER["DOCUMENT_ROOT"]."/include/json.php";
 
 //Check autorisation a être sur cette page:
-if (!in_array($_SESSION['role'], $Json_roleAllowToFinish)) {
+if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
     echo "Vous n'avez pas accès à cette partie de l'application Web, veuillez retournez a l'acceuil";
     exit;
 }
