@@ -62,7 +62,7 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
                 }
         $message_count_gates .= ")";
 
-        $qToJudge["All"] = $bdd->query('SELECT * FROM competitors WHERE NOT EXISTS (SELECT * FROM penalty WHERE competitors.number = penalty.competitor_number)');
+        $qToJudge["All"] = $bdd->query('SELECT * FROM competitors WHERE NOT EXISTS (SELECT * FROM penalty WHERE competitors.number = penalty.competitor_number AND competitors.IsOnRun = 1 AND competitors.IsHere = 1)');
         $countToJudge["All"] = $qToJudge["All"] ->rowCount();
 
         if ($countToJudge["All"] == 0){
@@ -224,7 +224,7 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
 <div class="table_HasBeenJudge">
     <?php
 
-        $qHasBeenJudge["All"] = $bdd->query('SELECT * FROM competitors, penalty WHERE competitors.number = penalty.competitor_number AND EXISTS (SELECT * FROM competitors WHERE competitors.number = penalty.competitor_number) ORDER BY penalty.gate_number, penalty.id');
+        $qHasBeenJudge["All"] = $bdd->query('SELECT * FROM competitors, penalty WHERE competitors.number = penalty.competitor_number AND EXISTS (SELECT * FROM competitors WHERE competitors.number = penalty.competitor_number AND competitors.IsOnRun = 1 AND competitors.IsHere = 1) ORDER BY penalty.gate_number, penalty.id');
         $countHasBeenJudge["All"] = $qHasBeenJudge["All"] ->rowCount();
 
         if ($countHasBeenJudge["All"] == 0){
@@ -251,7 +251,7 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
                 <TH colspan=\"7\" > Portes: $gate</TH>
             </TR>";
 
-            $qHasBeenJudge[$gate] = $bdd->prepare('SELECT * FROM competitors, penalty WHERE competitors.number = penalty.competitor_number AND EXISTS (SELECT * FROM competitors WHERE competitors.number = penalty.competitor_number AND penalty.gate_number = :gate) ORDER BY penalty.gate_number, penalty.id');
+            $qHasBeenJudge[$gate] = $bdd->prepare('SELECT * FROM competitors, penalty WHERE competitors.number = penalty.competitor_number AND EXISTS (SELECT * FROM competitors WHERE competitors.number = penalty.competitor_number AND penalty.gate_number = :gate AND competitors.IsOnRun = 1 AND competitors.IsHere = 1) ORDER BY penalty.gate_number, penalty.id');
             $parameters_HasBeenJudge[$gate] = array(':gate' => $gate);
             $qHasBeenJudge[$gate]->execute($parameters_HasBeenJudge[$gate]);
 
@@ -350,4 +350,4 @@ include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
 //FOOTER
 include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";
 
-?>
+    ?>
