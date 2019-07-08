@@ -32,6 +32,18 @@ UPDATE `users` SET `IsConnected`=0;
 TRUNCATE TABLE race1;
 TRUNCATE TABLE penalty;
 ```
+**Cacher les erreurs PHP de l'application**
+Dans php.ini:
+- display_errors
+```
+Development Value: On
+Production Value: Off
+```
+- display_startup_errors
+``` md
+Development Value: On
+Production Value: Off
+```
 
 //BEST var_dump ==>
 var_dump(highlight_string("<?\n". var_export($data, true)))
