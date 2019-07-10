@@ -90,12 +90,20 @@ if (isset($_GET['number'])) {
  */ 
 function SumPenalty(int $competitor_number)
 {
-    global $bdd, $json;
-    $penalty_total = NULL;
-    $CurrentRace = "race1";
+    global $bdd, $json, $Json_CurrentRace;
+    $CurrentRace = $Json_CurrentRace;
 
-    // Get penalties of the competitor
+    echo "current race: ".$CurrentRace;
+    echo "competitor_number: ".$competitor_number;
+
+    //! DONT WORK: DONT EXTRACT $penalty_amount FROM STM !
+    //* Get penalties of the competitor
+    /*
     try {
+        echo "<br/><br/>";
+        echo "SELECT SUM(penalty_amount) AS penalty_amount FROM $CurrentRace, penalty WHERE ".$CurrentRace.".number = penalty.competitor_number && ".$CurrentRace.".number = :competitor_number";
+        echo "<br/>";
+        echo "competitor number: ".$competitor_number;
         $sqlSelectPenalty = "SELECT SUM(penalty_amount) AS penalty_amount FROM $CurrentRace, penalty WHERE ".$CurrentRace.".number = penalty.competitor_number && ".$CurrentRace.".number = :competitor_number";
         $qSelectPenalty = $bdd->prepare($sqlSelectPenalty);
         $qSelectPenalty->execute([$competitor_number]);
@@ -104,22 +112,18 @@ function SumPenalty(int $competitor_number)
         $warning['errorRequestSelectPenalty'] = $e->GETMessage();
     }
 
-    // Calcula of the sum of penalties make directly in the sql request so:
-    foreach ($qSelectPenalty as $a) {
-        var_dump($a);
-        $penalty_total = $a['penalty_amount'];
-    }
-    $infos['[✔] AdditionOfAllPenalty'] = "Les pénalitées de $competitor_number sont $penalty_total";
+    $infos['[✔] SumOfAllPenalty'] = "Les pénalitées de $competitor_number sont $penalty_total";
+    */
 
-    // Set the new sum of penalties into the current race table
+    // Set the sum of penalties into the current race table
     try {
-        $sqlUpdateSumPenalty = "UPDATE $CurrentRace SET penalty = $penalty_total";
+        $sqlUpdateSumPenalty = "UPDATE ".$CurrentRace." SET penalty = (SELECT SUM(penalty_amount) AS penalty_amount FROM penalty WHERE ".$CurrentRace.".number = penalty.competitor_number && ".$CurrentRace.".number = :competitor_number)";
         $qUpdateSumPenalty = $bdd->prepare($sqlUpdateSumPenalty);
         $qUpdateSumPenalty->execute();
 
-        $infos['[✔] sendingRequestSurrendCompetitor'] = "Les pénalitées de $competitor_number ont toutes été actualisées pour les résultats";
+        $infos['[✔] sendingRequestUpdateSumPenalty'] = "Les pénalitées de $competitor_number ont toutes été actualisées pour les résultats";
     } catch (PDOException $e) {
-        $warning['errorRequestUpdateSumPenalty '] = $e->GETMessage();
+        $warning['errorRequestUpdateSumPenalty'] = $e->GETMessage();
     }
 
     return true;

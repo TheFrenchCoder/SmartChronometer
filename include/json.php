@@ -10,3 +10,4 @@ $Json_roleAllowToFinish = $json['role']["allowTo"]["finish"];
 $Json_roleAllowToAdmin = $json['role']["allowTo"]["admin"];
 $Json_roleAllowToJudge = $json['role']["allowTo"]["judge"];
 $Json_JudgeDisplayPenaltyChoice = $json['judge']["displayPenaltyChoice"];
+$Json_CurrentRace = $json['races']["currentRace"];
