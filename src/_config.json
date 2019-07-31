@@ -1,5 +1,5 @@
 {
-    "_comment_environment": "development or production",
+    "_comment_environment": "development(localhost) or production(Stable)",
     "environment": "development",
     "role":
         {
