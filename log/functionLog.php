@@ -68,26 +68,26 @@ function ecrire_log($type, $user, $domain, $action, $details){
 /* ---- Remplacement du $user si il est null ---- */
 
 
-    if ($user == null) {$user = "SomeOne";}
+    if ($user == null) {$user = "";}
 
 //-----\\ END  //-----\\
 
 /* ---- Remplacement du $domain si il est null ---- */
 
-    if ($domain == null) {$domain = "Unknown";}
+    if ($domain == null) {$domain = "";}
     if (strstr($_SERVER['REMOTE_ADDR'], ':') !== false) {$domain = "LocalHost";}
 
 //-----\\ END  //-----\\
 
 /* ---- Remplacement du $action si il est null ---- */
 
-    if ($action == null) {$action = "Do SomeThing";}
+    if ($action == null) {$action = "";}
 
 //-----\\ END  //-----\\
 
 /* ---- Remplacement du $details si il est null ---- */
 
-    if ($details == null) {$details = "Details";}
+    if ($details == null) {$details = "";}
 
 //-----\\ END  //-----\\
 
