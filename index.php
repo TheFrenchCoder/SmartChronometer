@@ -1,7 +1,6 @@
 <?php
 // On démarre la session si besoin dans le futur
 session_start();
-
 ?>
 
 <!DOCTYPE html>
@@ -62,10 +61,9 @@ session_start();
 </html>
 
 <?php
-//?DEBUG
-include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
 
-//FOOTER
+include_once $_SERVER['DOCUMENT_ROOT']."/include/debug.php";
+include_once $_SERVER["DOCUMENT_ROOT"]."/include/setup.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/include/part/footer.php";
 
 ?>
