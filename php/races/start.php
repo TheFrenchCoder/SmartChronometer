@@ -47,15 +47,12 @@ if (!in_array($_SESSION['user_role'], $Json_roleAllowToJudge)) {
     WHERE IsHere = 0');
     $countMissing = $qMissing ->rowCount();
 
-    $qInRace = $bdd->query('SELECT
-  *
-FROM
-  competitors
-WHERE
-  isonstart = 0
-  AND isonrun = 1
-  AND isfinish = 0
-  AND ishere = 1');
+    $qInRace = $bdd->query('SELECT *
+    FROM competitors
+    WHERE isonstart = 0
+      AND isonrun = 1
+      AND isfinish = 0
+      AND ishere = 1');
     $countInRace = $qInRace ->rowCount();
 ?>
 <div class="table_Present"> 
