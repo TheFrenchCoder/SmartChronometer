@@ -50,7 +50,8 @@ CREATE TABLE IF NOT EXISTS `competitors` (
 -- Déchargement des données de la table `competitors`
 --
 
-INSERT INTO `competitors` (`id`, `number`, `name`, `firstname`, `categorie_name`, `categorie_number`, `sex`, `club_abrev`, `IsOnStart`, `IsOnRun`, `IsFinish`, `IsHere`) VALUES
+INSERT INTO `competitors` 
+(`id`, `number`, `name`, `firstname`, `categorie_name`, `categorie_number`, `sex`, `club_abrev`, `IsOnStart`, `IsOnRun`, `IsFinish`, `IsHere`) VALUES
 (19, 875, 'Balafre', 'Gabriel', 'Junior', '5', 1, 'CKS', 1, 0, 0, 1),
 (18, 52, 'Rio', 'Gabin', 'Cadet', '4', 1, 'NCKC', 0, 0, 1, 1),
 (17, 99, 'Ferrier', 'Gabriella', 'Cadet', '4', 0, 'NCKC', 1, 0, 0, 1),
@@ -71,14 +72,6 @@ CREATE TABLE IF NOT EXISTS `penalty` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Table containing the penalties of the competition as well as';
 
---
--- Déclencheurs `penalty`
---
-DELIMITER $$
-CREATE TRIGGER `Update - sum(penality) by competitor` AFTER UPDATE ON `penalty` FOR EACH ROW UPDATE race1, penalty SET race1.penalty = SUM(penalty.penalty_amount) WHERE race1.number = penalty.competitor_number && race1.number = NEW.competitor_number
-$$
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -95,29 +88,6 @@ CREATE TABLE IF NOT EXISTS `race1` (
   `test` double GENERATED ALWAYS AS (((`finish_time` - `start_time`) + `penalty`)) STORED,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `race1`
---
-
-INSERT INTO `race1` (`id`, `number`, `start_time`, `finish_time`, `penalty`, `result_time`) VALUES
-(1, 1, 1555780611.0988, 1555780625.4752, 0, 14.376399993896484),
-(2, 66, 1555780659.2253, 1555780822.1863, 0, 162.96099996566772),
-(3, 875, 1555780882.3812, 1555780894.6619, 50, 12.280699968338013),
-(4, 55, 1557833051.8524, 1558190734.6501, 0, 357682.7976999283),
-(6, 52, 1557940624.8551, 1558190726.4784, 0, 250101.62330007553);
-
---
--- Déclencheurs `race1`
---
-DELIMITER $$
-CREATE TRIGGER `Insert result_time` BEFORE INSERT ON `race1` FOR EACH ROW SET NEW.result_time = NEW.finish_time - NEW.start_time
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `Update result_time` BEFORE UPDATE ON `race1` FOR EACH ROW SET NEW.result_time = NEW.finish_time - NEW.start_time
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
