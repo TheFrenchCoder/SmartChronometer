@@ -55,117 +55,117 @@ foreach ($lines as $line_num => $line) {
 fclose($file); //fermer le fichier
 
 
-function ecrire_log($type, $user, $domain, $action, $details){
+function sire_log($type, $user, $domain, $action, $details){
 
-/* ---- Remplacement du $type si il est null ---- */
+    /* ---- Remplacement du $type si il est null ---- */
 
-    if (strcasecmp($type,"info") == 0) {$type = "INFO";}
-    elseif (strcasecmp($type,"error") == 0){$type = "ERROR";}
-    else {$type = "Default";}
+        if (strcasecmp($type,"info") == 0) {$type = "INFO";}
+        elseif (strcasecmp($type,"error") == 0){$type = "ERROR";}
+        else {$type = "Default";}
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
-/* ---- Remplacement du $user si il est null ---- */
+    /* ---- Remplacement du $user si il est null ---- */
 
 
-    if ($user == null) {$user = "";}
+        if ($user == null) {$user = "";}
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
-/* ---- Remplacement du $domain si il est null ---- */
+    /* ---- Remplacement du $domain si il est null ---- */
 
-    if ($domain == null) {$domain = "";}
-    if (strstr($_SERVER['REMOTE_ADDR'], ':') !== false) {$domain = "LocalHost";}
+        if ($domain == null) {$domain = "";}
+        if (strstr($_SERVER['REMOTE_ADDR'], ':') !== false) {$domain = "LocalHost";}
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
-/* ---- Remplacement du $action si il est null ---- */
+    /* ---- Remplacement du $action si il est null ---- */
 
-    if ($action == null) {$action = "";}
+        if ($action == null) {$action = "";}
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
-/* ---- Remplacement du $details si il est null ---- */
+    /* ---- Remplacement du $details si il est null ---- */
 
-    if ($details == null) {$details = "";}
+        if ($details == null) {$details = "";}
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
-/* ---- Remplacement du $date('F') se sont les mois qui sont la en anglais 
-        par un char traduit en Fr ---- */
+    /* ---- Remplacement du $date('F') se sont les mois qui sont la en anglais 
+            par un char traduit en Fr ---- */
 
-    // Jan : January
-    if (strcasecmp(date("F"),"February") == 0) {$mouth =  " Févr.";}
-    elseif (strcasecmp(date("F"),"March") == 0) {$mouth = "Mars";}
-    elseif (strcasecmp(date("F"),"April") == 0) {$mouth = "Avr.";}
-    elseif (strcasecmp(date("F"),"May") == 0) {$mouth = "Mai";}
-    elseif (strcasecmp(date("F"),"June") == 0) {$mouth = "Juin";}
-    elseif (strcasecmp(date("F"),"July") == 0) {$mouth = "Juill.";}
-    elseif (strcasecmp(date("F"),"August") == 0) {$mouth = "Août";}
-    elseif (strcasecmp(date("F"),"September") == 0) {$mouth = "Sept.";}
-    // Oct : October
-    // Nov : November
-    elseif (strcasecmp(date("F"),"December") == 0) {$mouth = "Déc.";}
+        // Jan : January
+        if (strcasecmp(date("F"),"February") == 0) {$mouth =  " Févr.";}
+        elseif (strcasecmp(date("F"),"March") == 0) {$mouth = "Mars";}
+        elseif (strcasecmp(date("F"),"April") == 0) {$mouth = "Avr.";}
+        elseif (strcasecmp(date("F"),"May") == 0) {$mouth = "Mai";}
+        elseif (strcasecmp(date("F"),"June") == 0) {$mouth = "Juin";}
+        elseif (strcasecmp(date("F"),"July") == 0) {$mouth = "Juill.";}
+        elseif (strcasecmp(date("F"),"August") == 0) {$mouth = "Août";}
+        elseif (strcasecmp(date("F"),"September") == 0) {$mouth = "Sept.";}
+        // Oct : October
+        // Nov : November
+        elseif (strcasecmp(date("F"),"December") == 0) {$mouth = "Déc.";}
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
-/* ---- Remplacement du $date('D') se sont les jours qui sont la en anglais 
-        par un char traduit en Fr ---- */
+    /* ---- Remplacement du $date('D') se sont les jours qui sont la en anglais 
+            par un char traduit en Fr ---- */
 
-    if (date("l") == "Monday") {$dayLetters = "Lundi";}
-    elseif (date("l") == "Tuesday") {$dayLetters = "Mardi";}
-    elseif (date("l") == "Wednesday") {$dayLetters = "Mercr.";}
-    elseif (date("l") == "Thursday") {$dayLetters = "Jeudi";}
-    elseif (date("l") == "Friday") {$dayLetters = "Vendr.";}
-    elseif (date("l") == "Saturday") {$dayLetters = "Sam.";}
-    elseif (date("l") == "Sunday") {$dayLetters = "Dim.";}
+        if (date("l") == "Monday") {$dayLetters = "Lundi";}
+        elseif (date("l") == "Tuesday") {$dayLetters = "Mardi";}
+        elseif (date("l") == "Wednesday") {$dayLetters = "Mercr.";}
+        elseif (date("l") == "Thursday") {$dayLetters = "Jeudi";}
+        elseif (date("l") == "Friday") {$dayLetters = "Vendr.";}
+        elseif (date("l") == "Saturday") {$dayLetters = "Sam.";}
+        elseif (date("l") == "Sunday") {$dayLetters = "Dim.";}
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
-/* ---- Remplacement du $date('d') qui est le n° du jour dans le mois ---- */
+    /* ---- Remplacement du $date('d') qui est le n° du jour dans le mois ---- */
 
-    if (strcasecmp(date("j"),"1") == 0) {$dayNumber = "1er";
-    }else {$dayNumber = date("j");}
+        if (strcasecmp(date("j"),"1") == 0) {$dayNumber = "1er";
+        }else {$dayNumber = date("j");}
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
-/* ---- Initialisation de $time ---- */
+    /* ---- Initialisation de $time ---- */
 
-    $time = date("H") . ":" . date("i") . ":" . date("s");
+        $time = date("H") . ":" . date("i") . ":" . date("s");
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
-/* ---- Initialisation de $date ---- */
+    /* ---- Initialisation de $date ---- */
 
-    $date = $dayLetters . ", " . $dayNumber . " " . $mouth;
+        $date = $dayLetters . ", " . $dayNumber . " " . $mouth;
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
-/* ---- Initialisation de $path ---- */
+    /* ---- Initialisation de $path ---- */
 
-    if (PHP_OS == "Linux"){
-            $path = "";
-    }elseif (PHP_OS ==  "WINNT"){
-        //$path = "../log/" . $user . ".txt";
-        $path = "log.txt";
-    }
+        if (PHP_OS == "Linux"){
+                $path = "";
+        }elseif (PHP_OS ==  "WINNT"){
+            //$path = "../log/" . $user . ".txt";
+            $path = $_SERVER["DOCUMENT_ROOT"]."/log/log.txt";
+        }
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
-/* ---- Initialisation de $log ---- */
+    /* ---- Initialisation de $log ---- */
 
-    $log= "[" . $date . " à " . $time . "] [" .$type . "] [" . $user . "@" . $domain . "] " . $action . " ( " . $details . " )" . "\r\n";
+        $log= "[" . $date . " à " . $time . "] [" .$type . "] [" . $user . "@" . $domain . "] " . $action . " ( " . $details . " )" . "\r\n";
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
-/* ---- Initialisation final + écriture ---- */
+    /* ---- Initialisation final + écriture ---- */
 
-    $file = fopen($path,'a+') or die("Unable to open file!"); // ouvrir le fichier ou le créer
-    rewind($file); // poser le point de lecture au début du fichier
-    fputs($file,$log); // ecrire dans ce texte
-    fclose($file); //fermer le fichier
+        $file = fopen($path,'a+') or die("Unable to open file!"); // ouvrir le fichier ou le créer
+        rewind($file); // poser le point de lecture au début du fichier
+        fputs($file,$log); // ecrire dans ce texte
+        fclose($file); //fermer le fichier
 
-//-----\\ END  //-----\\
+    //-----\\ END  //-----\\
 
 
 }

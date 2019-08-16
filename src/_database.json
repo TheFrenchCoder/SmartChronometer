@@ -1,0 +1,18 @@
+{
+    "_comment_database": "Contains all data about the database manager system",
+    "database":
+        {
+            "_comment_all": "list of all project's role",
+            "all": ["Admin", "Start", "Finish", "Judge", "Debug"],
+            
+            "allowTo":{
+                "start": ["Admin", "Start"],
+                "judge": ["Admin", "Judge"],
+                "finish": ["Admin", "Finish"],
+                "admin": ["Admin"],
+
+                "_comment_debug": "not use",
+                "debug": ["Admin", "Debug"]
+            }    
+        }
+}
