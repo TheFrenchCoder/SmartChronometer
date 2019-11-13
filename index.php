@@ -9,7 +9,7 @@ session_start();
 <head>
      <title>Main Chrono</title>
      <meta charset="utf-8">
-     <link rel="stylesheet" type="text/css" href="css/maine.css"/>
+     <link rel="stylesheet" type="text/css" href="css/main.css"/>
 </head>
 
 <body>
