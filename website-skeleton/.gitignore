@@ -1,8 +1,4 @@
 
-<<<<<<< Updated upstream
-*.txt
-log/log.txt
-=======
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -18,4 +14,3 @@ log/log.txt
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
->>>>>>> Stashed changes
